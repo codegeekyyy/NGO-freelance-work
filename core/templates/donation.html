@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Donate | Leela Foundation{% endblock %}
+
+{% block content %}
+<section class="py-24 md:py-32 bg-[#FDFBF7] min-h-[80vh] flex items-center justify-center">
+    <div class="max-w-4xl mx-auto px-6 text-center">
+        <!-- Badge -->
+        <div class="inline-flex items-center gap-2 bg-[#F2E7D5] px-4 py-2 rounded-full text-[#7C9070] font-bold text-sm uppercase tracking-widest mb-8">
+            <iconify-icon icon="ph:heart-fill"></iconify-icon>
+            Support Our Mission
+        </div>
+
+        <h1 class="font-display text-5xl md:text-6xl font-bold text-[#2D2D2D] mb-8">
+            Your Kindness counts.
+        </h1>
+        
+        <p class="text-xl text-[#5E5E5E] leading-relaxed max-w-2xl mx-auto mb-16">
+            To make a direct contribution to our foundation, please scan the bank QR code below using any UPI app (Google Pay, PhonePe, Paytm, etc.).
+        </p>
+
+        <!-- QR Code Card -->
+        <div class="relative max-w-md mx-auto">
+            <!-- Decorative blobs -->
+            <div class="blob-bg w-64 h-64 bg-[#D97757] -top-10 -left-10 opacity-10 animate-float"></div>
+            <div class="blob-bg w-48 h-48 bg-[#7C9070] -bottom-10 -right-10 opacity-10"></div>
+
+            <div class="bg-white p-8 md:p-12 rounded-[3rem] shadow-2xl border-4 border-[#F2E7D5] relative z-10">
+                <div class="relative mb-6">
+                    <img src="{% static 'core/images/qr_code.jpg' %}" alt="Payment QR Code" class="w-full h-auto rounded-2xl mx-auto">
+                </div>
+                
+                <div class="space-y-2 mt-8">
+                    <p class="text-[#2D2D2D] font-bold text-xl uppercase tracking-tight">Leela Foundation</p>
+                    <p class="text-[#7C9070] font-medium font-body flex items-center justify-center gap-2">
+                        <iconify-icon icon="ph:shield-check-bold"></iconify-icon>
+                        Secure Bank Transfer
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div class="mt-16 space-y-4">
+            <p class="text-[#A89D8F] text-sm md:text-base">
+                Having trouble scanning? You can also use our direct UPI ID or reach out to us for bank details.
+            </p>
+            <a href="/" class="inline-flex items-center gap-2 text-[#D97757] font-bold hover:underline">
+                <iconify-icon icon="ph:arrow-left-bold"></iconify-icon>
+                Return to Home
+            </a>
+        </div>
+    </div>
+</section>
+{% endblock %}

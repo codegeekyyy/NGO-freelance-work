@@ -1,0 +1,74 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Leela Foundation | Education & Community NGO{% endblock %}</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js"></script>
+    <style>
+        @import url('https://api.fontshare.com/v2/css?f[]=gambetta@400,500,600,700&f[]=satoshi@400,500,700&display=swap');
+
+        :root {
+            --color-terracotta: #D97757;
+            --color-sage: #7C9070;
+            --color-cream: #FDFBF7;
+            --color-sand: #F2E7D5;
+            --font-display: 'Gambetta', serif;
+            --font-body: 'Satoshi', sans-serif;
+        }
+
+        body {
+            font-family: var(--font-body);
+            color: #2D2D2D;
+            background-color: var(--color-cream);
+        }
+
+        .font-display {
+            font-family: var(--font-display);
+        }
+
+        .organic-radius-1 {
+            border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
+        }
+
+        .organic-radius-2 {
+            border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
+        }
+
+        .scribble-border {
+            border: 2px solid #D97757;
+            border-radius: 255px 15px 225px 15px/15px 225px 15px 255px;
+        }
+
+        .blob-bg {
+            position: absolute;
+            z-index: -1;
+            filter: blur(40px);
+            opacity: 0.15;
+        }
+
+        .animate-float {
+            animation: float 6s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-15px); }
+            100% { transform: translateY(0px); }
+        }
+    </style>
+</head>
+<body>
+    <div class="min-h-screen flex flex-col">
+        {% include "includes/header.html" %}
+
+        <main class="flex-1">
+            {% block content %}{% endblock %}
+        </main>
+
+        {% include "includes/footer.html" %}
+    </div>
+</body>
+</html>

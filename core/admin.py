@@ -1,5 +1,14 @@
 from django.contrib import admin
-from .models import Category, Event, Volunteer, Donation, ContactMessage, Testimonial
+from .models import Category, Event, Volunteer, Donation, ContactMessage, Testimonial, ImpactStatistic
+
+@admin.register(ImpactStatistic)
+class ImpactStatisticAdmin(admin.ModelAdmin):
+    list_display = ('lives_touched', 'bloom_rate', 'communities')
+    def has_add_permission(self, request):
+        # Only allow one instance of stats
+        if self.model.objects.count() >= 1:
+            return False
+        return super().has_add_permission(request)
 
 @admin.register(Category)
 class CategoryAdmin(admin.ModelAdmin):

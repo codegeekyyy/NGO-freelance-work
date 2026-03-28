@@ -1,0 +1,46 @@
+<section id="contact" class="py-32 bg-white">
+    <div class="max-w-[1440px] mx-auto px-10">
+        <div class="grid lg:grid-cols-2 gap-24 items-start">
+            <div class="space-y-12">
+                <div class="space-y-6">
+                    <h2 class="font-display text-5xl font-bold text-[#2D2D2D]">Get in touch with <br><span class="text-[#D97757]">Leela Foundation.</span></h2>
+                    <p class="text-lg text-[#5E5E5E] leading-relaxed">
+                        Whether you have a question about our projects, want to partner with us, or simply want to say hello, we'd love to hear from you.
+                    </p>
+                </div>
+
+                <div class="grid md:grid-cols-2 gap-8">
+                    <div class="flex items-start gap-4 p-6 bg-[#FDFBF7] rounded-[2rem] border border-[#F2E7D5]">
+                        <iconify-icon icon="ph:map-pin-bold" class="text-3xl text-[#7C9070]"></iconify-icon>
+                        <div>
+                            <h4 class="font-bold text-[#2D2D2D]">Our Location</h4>
+                            <p class="text-[#5E5E5E]">123 Foundation Way, <br>Varanasi, India</p>
+                        </div>
+                    </div>
+                    <div class="flex items-start gap-4 p-6 bg-[#FDFBF7] rounded-[2rem] border border-[#F2E7D5]">
+                        <iconify-icon icon="ph:envelope-simple-bold" class="text-3xl text-[#D97757]"></iconify-icon>
+                        <div>
+                            <h4 class="font-bold text-[#2D2D2D]">Email Us</h4>
+                            <p class="text-[#5E5E5E]">leelafoundation323@gmail.com</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-[#FDFBF7] p-10 rounded-[3rem] shadow-sm border border-[#F2E7D5]">
+                <form method="POST" class="space-y-6">
+                    {% csrf_token %}
+                    <div class="grid md:grid-cols-2 gap-6">
+                        {{ contact_form.name }}
+                        {{ contact_form.email }}
+                    </div>
+                    {{ contact_form.subject }}
+                    {{ contact_form.message }}
+                    <button type="submit" name="contact_submit" class="w-full bg-[#2D2D2D] py-5 text-white font-bold text-lg rounded-xl hover:bg-[#D97757] transition-all uppercase tracking-widest">
+                        Send Message
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>

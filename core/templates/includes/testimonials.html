@@ -6,38 +6,26 @@
         </div>
 
         <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-10">
-            <div class="bg-white p-12 rounded-[3rem] shadow-sm relative">
+            {% for testimonial in testimonials %}
+            <div class="bg-white p-12 rounded-[3rem] shadow-sm relative {% if forloop.counter == 2 %}md:translate-y-8{% endif %}">
                 <div class="absolute -top-6 left-12 w-16 h-16 organic-radius-1 bg-[#F2E7D5] overflow-hidden border-4 border-white shadow-md">
-                    <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Jasmine" alt="Jasmine" class="w-full h-full object-cover">
+                    {% if testimonial.image %}
+                        <img src="{{ testimonial.image.url }}" alt="{{ testimonial.name }}" class="w-full h-full object-cover">
+                    {% else %}
+                        <img src="https://api.dicebear.com/7.x/avataaars/svg?seed={{ testimonial.name }}" alt="{{ testimonial.name }}" class="w-full h-full object-cover">
+                    {% endif %}
                 </div>
                 <p class="text-[#5E5E5E] italic text-lg leading-relaxed mb-8">
-                    "The organic approach here really works. They don't just teach math; they teach us how to care for our community and our planet."
+                    "{{ testimonial.content }}"
                 </p>
-                <h4 class="font-bold text-[#D97757]">Jasmine Thorne</h4>
-                <p class="text-sm text-[#7C9070] font-medium uppercase">11th Grade Student</p>
+                <h4 class="font-bold text-[#D97757]">{{ testimonial.name }}</h4>
+                <p class="text-sm text-[#7C9070] font-medium uppercase">{{ testimonial.role }}</p>
             </div>
-
-            <div class="bg-white p-12 rounded-[3rem] shadow-sm relative md:translate-y-8">
-                <div class="absolute -top-6 left-12 w-16 h-16 organic-radius-1 bg-[#F2E7D5] overflow-hidden border-4 border-white shadow-md">
-                    <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Marcus" alt="Marcus" class="w-full h-full object-cover">
-                </div>
-                <p class="text-[#5E5E5E] italic text-lg leading-relaxed mb-8">
-                    "Being a donor for Grown Together feels personal. I get updates on how 'my' school is thriving, and it warms my heart every time."
-                </p>
-                <h4 class="font-bold text-[#D97757]">Marcus Chen</h4>
-                <p class="text-sm text-[#7C9070] font-medium uppercase">Monthly Supporter</p>
+            {% empty %}
+            <div class="col-span-full text-center py-10">
+                <p class="text-[#5E5E5E]">No testimonials yet. Be the first to share your story!</p>
             </div>
-
-            <div class="bg-white p-12 rounded-[3rem] shadow-sm relative md:col-span-2 lg:col-span-1">
-                <div class="absolute -top-6 left-12 w-16 h-16 organic-radius-1 bg-[#F2E7D5] overflow-hidden border-4 border-white shadow-md">
-                    <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Sara" alt="Sara" class="w-full h-full object-cover">
-                </div>
-                <p class="text-[#5E5E5E] italic text-lg leading-relaxed mb-8">
-                    "Our village has completely changed. With the new resource center, even the adults are learning to read and write alongside their kids."
-                </p>
-                <h4 class="font-bold text-[#D97757]">Sara Mwangi</h4>
-                <p class="text-sm text-[#7C9070] font-medium uppercase">Community Leader</p>
-            </div>
+            {% endfor %}
         </div>
     </div>
 </section>

@@ -1,0 +1,24 @@
+Project Status - March 28, 2026
+🚀 Accomplishments (Today)
+1. Authentication & Google OAuth
+Integration: Successfully integrated django-allauth with Google as a social provider.
+UI Styling: Designed premium login and signup pages using a consistent Sage & Terracotta aesthetic.
+Security: Fixed historical 405 errors by converting logout to a secure POST method.
+Access Control: Secured the donate view to ensure all contributions are linked to a registered user.
+2. Dynamic Data Infrastructure
+Global Impact: Created the ImpactStatistic model to manage homepage metrics from the Admin.
+Real-time Analytics: Updated the Dashboard and Hero sections to pull live data from the database.
+Automatic Tracking: Form submissions (Volunteers, Donations) now automatically associate with the logged-in user for impact tracking.
+3. UI/UX Refinements
+Conditional Header: Implemented logic to dynamically show Dashboard/Sign Out links for logged-in users.
+Syncing: Synchronized the "Our Changemakers" and "Campaigns Led" metrics across the public and private sides of the site.
+📅 Roadmap (Tomorrow)
+1. Advanced Access Control & Profiles
+ Staff-Only Dashboard: Restrict management tools to NGO owners only.
+ User Contribution Profiles: Create a simple view for regular users to see their donation history.
+2. Modular Project Gallery
+ Dynamic Gallery: Build a component to showcase different NGO projects (e.g., individual student seeds).
+ Project Models: Add models to track specific project milestones and updates.
+3. Production Readiness
+ Production Email: Transition from console-based emails to a real SMTP provider (e.g., SendGrid).
+ Data Validation: Review form logic to ensure robust data entry.

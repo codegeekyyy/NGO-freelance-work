@@ -39,9 +39,22 @@
                     </div>
                 </div>
             </div>
-            <button class="scribble-border px-12 py-5 text-[#D97757] font-bold text-lg hover:bg-[#D97757] hover:text-white transition-all">
-                Join Our Global Family
-            </button>
+            <div class="bg-white p-8 rounded-[3rem] shadow-sm border border-[#F2E7D5] mt-10">
+                <form method="POST" class="space-y-6">
+                    {% csrf_token %}
+                    <div class="grid md:grid-cols-2 gap-6">
+                        {{ form.name }}
+                        {{ form.email }}
+                    </div>
+                    {{ form.phone }}
+                    {{ form.motivation_to_join }}
+                    {{ form.skills }}
+                    
+                    <button type="submit" name="volunteer_submit" class="w-full scribble-border py-5 text-[#D97757] font-bold text-lg hover:bg-[#D97757] hover:text-white transition-all uppercase tracking-widest">
+                        Submit Application
+                    </button>
+                </form>
+            </div>
         </div>
     </div>
 </section>

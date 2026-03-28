@@ -1,5 +1,6 @@
 from django.db import models
 from django.utils.text import slugify
+from django.contrib.auth.models import User
 # Create your models here.
 
 
@@ -39,6 +40,8 @@ class Volunteer(models.Model):
     skills = models.TextField()
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
+    user = models.OneToOneField(User, on_delete=models.CASCADE, null=True, blank=True)
+    volunteer_hours = models.IntegerField(default=0)
 
     def __str__(self):
         return self.name
@@ -57,6 +60,7 @@ class Donation(models.Model):
     transaction_id = models.CharField(max_length=100, unique=True)
     status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='pending')
     date=models.DateTimeField(auto_now_add=True)
+    user = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True)
 
     def __str__(self):
         return f"{self.donor_name} - {self.amount}"
@@ -82,3 +86,11 @@ class Testimonial(models.Model):
 
     def __str__(self):
         return self.name
+
+class ImpactStatistic(models.Model):
+    lives_touched = models.CharField(max_length=20, default="12K+")
+    bloom_rate = models.CharField(max_length=20, default="85%")
+    communities = models.CharField(max_length=20, default="40+")
+
+    def __str__(self):
+        return "Global Impact Statistics"

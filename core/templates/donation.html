@@ -39,11 +39,45 @@
                     </p>
                 </div>
             </div>
+
+            <!-- Donation Form -->
+            <div class="mt-16 bg-white p-10 rounded-[3rem] shadow-sm border border-[#F2E7D5] text-left">
+                <h3 class="font-display text-2xl font-bold text-[#2D2D2D] mb-6 text-center">Already Donated? <span class="text-[#7C9070]">Let us know.</span></h3>
+                <form method="POST" class="space-y-6">
+                    {% csrf_token %}
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <div class="space-y-2">
+                            <label class="font-bold text-sm text-[#5E5E5E] ml-2">Donor Name</label>
+                            {{ donation_form.donor_name }}
+                        </div>
+                        <div class="space-y-2">
+                            <label class="font-bold text-sm text-[#5E5E5E] ml-2">Email Address</label>
+                            {{ donation_form.email }}
+                        </div>
+                    </div>
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <div class="space-y-2">
+                            <label class="font-bold text-sm text-[#5E5E5E] ml-2">Amount (INR)</label>
+                            {{ donation_form.amount }}
+                        </div>
+                        <div class="space-y-2">
+                            <label class="font-bold text-sm text-[#5E5E5E] ml-2">Transaction ID (Optional)</label>
+                            {{ donation_form.transaction_id }}
+                        </div>
+                    </div>
+                    <button type="submit" class="w-full bg-[#7C9070] py-5 text-white font-bold text-lg rounded-xl hover:bg-[#D97757] transition-all uppercase tracking-widest">
+                        Submit Donation Details
+                    </button>
+                </form>
+            </div>
         </div>
 
         <div class="mt-16 space-y-4">
             <p class="text-[#A89D8F] text-sm md:text-base">
                 Having trouble scanning? You can also use our direct UPI ID or reach out to us for bank details.
+            </p>
+            <p class="text-[#A89D8F] text-sm md:text-base">
+                *NOTE-Please fill the form after donating. We will verify it soon❤️.
             </p>
             <a href="/" class="inline-flex items-center gap-2 text-[#D97757] font-bold hover:underline">
                 <iconify-icon icon="ph:arrow-left-bold"></iconify-icon>

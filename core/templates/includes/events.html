@@ -50,7 +50,7 @@
                     <p class="text-[#5E5E5E] line-clamp-2 leading-relaxed mb-6">
                         {{ event.description }}
                     </p>
-                    <a href="#" class="inline-flex items-center gap-2 font-bold text-[#D97757] hover:gap-3 transition-all">
+                    <a href="{% url 'event_detail' event.id %}" class="inline-flex items-center gap-2 font-bold text-[#D97757] hover:gap-3 transition-all">
                         Read More
                         <iconify-icon icon="ph:arrow-right-bold"></iconify-icon>
                     </a>

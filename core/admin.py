@@ -1,5 +1,9 @@
 from django.contrib import admin
-from .models import Category, Event, Volunteer, Donation, ContactMessage, Testimonial, ImpactStatistic
+from .models import Category, Event, Volunteer, Donation, ContactMessage, Testimonial, ImpactStatistic, GalleryPhoto, EventImage
+
+class EventImageInline(admin.TabularInline):
+    model = EventImage
+    extra = 3
 
 @admin.register(ImpactStatistic)
 class ImpactStatisticAdmin(admin.ModelAdmin):
@@ -20,6 +24,7 @@ class EventAdmin(admin.ModelAdmin):
     list_display = ('title', 'Category', 'date', 'is_active')
     list_filter = ('Category', 'is_active', 'date')
     search_fields = ('title', 'description', 'location')
+    inlines = [EventImageInline]
 
 @admin.register(Volunteer)
 class VolunteerAdmin(admin.ModelAdmin):
@@ -44,3 +49,10 @@ class ContactMessageAdmin(admin.ModelAdmin):
 class TestimonialAdmin(admin.ModelAdmin):
     list_display = ('name', 'role', 'created_at')
     search_fields = ('name', 'content')
+
+
+@admin.register(GalleryPhoto)
+class GalleryPhotoAdmin(admin.ModelAdmin):
+    list_display = ('title', 'created_at')
+    search_fields = ('title',)
+    exclude = ('category',)

@@ -9,8 +9,12 @@ https://docs.djangoproject.com/en/6.0/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/6.0/ref/settings/
 """
-
+import os
 from pathlib import Path
+from dotenv import load_dotenv
+
+# Load .env file
+load_dotenv()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -20,10 +24,10 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/6.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-ir3mzcmeinz1obg&c9mthv@@57!46amavve9m8r8+q644^p=0$'
+SECRET_KEY = os.getenv('SECRET_KEY', 'django-insecure-ir3mzcmeinz1obg&c9mthv@@57!46amavve9m8r8+q644^p=0$')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = os.getenv('DEBUG', 'True') == 'True'
 
 ALLOWED_HOSTS = []
 
@@ -140,9 +144,17 @@ MEDIA_ROOT = BASE_DIR / 'media'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
-# Email Settings for Development (Prints to Console)
-EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
-DEFAULT_FROM_EMAIL = 'leelafoundation323@gmail.com'
+# Email Settings for Gmail SMTP
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = os.getenv('EMAIL_HOST_USER', 'leelafoundation323@gmail.com')
+EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD', '') 
+DEFAULT_FROM_EMAIL = os.getenv('EMAIL_HOST_USER', 'leelafoundation323@gmail.com')
+
+# (Old SendGrid - for reference/transition)
+SENDGRID_API_KEY = os.getenv('SENDGRID_API_KEY', 'your-api-key-here')
 
 # Where to redirect after login/logout
 LOGIN_REDIRECT_URL = 'dashboard'
@@ -150,6 +162,4 @@ LOGOUT_REDIRECT_URL = 'home'
 LOGIN_URL = 'login'
 
 
-LOGIN_REDIRECT_URL = '/'
-LOGOUT_REDIRECT_URL = '/'
 SOCIALACCOUNT_LOGIN_ON_GET = True

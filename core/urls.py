@@ -15,4 +15,17 @@ urlpatterns = [
 
     # protected dashboard
     path('dashboard/', views.dashboard, name='dashboard'),
+
+    # photo gallery
+    path('gallery/', views.gallery, name='gallery'),
+
+    # eventsdetail
+    path('events/<int:event_id>/', views.event_detail, name='event_detail'),
+    
+    #Routes
+    path('stories/', views.stories, name='stories'),
+    path('impact/', views.impact, name='impact'),
+    path('volunteer/', views.volunteer_view, name='volunteer'),
+    path('about/', views.about, name='about'),
+    path('contact/', views.contact, name='contact'),
 ]

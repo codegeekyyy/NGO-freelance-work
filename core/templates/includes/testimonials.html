@@ -15,9 +15,19 @@
                         <img src="https://api.dicebear.com/7.x/avataaars/svg?seed={{ testimonial.name }}" alt="{{ testimonial.name }}" class="w-full h-full object-cover">
                     {% endif %}
                 </div>
-                <p class="text-[#5E5E5E] italic text-lg leading-relaxed mb-8">
+                <p class="text-[#5E5E5E] italic text-lg leading-relaxed mb-4 transition-all duration-500 line-clamp-4 break-words">
                     "{{ testimonial.content }}"
                 </p>
+                
+                {% if testimonial.content|length > 180 %}
+                <button onclick="toggleTestimonial(this)" class="text-[#D97757] font-bold text-sm hover:underline mb-8 flex items-center gap-1 group transition-all">
+                    <span>Read More</span>
+                    <iconify-icon icon="ph:caret-down-bold" class="group-hover:translate-y-1 transition-transform"></iconify-icon>
+                </button>
+                {% else %}
+                <div class="mb-8"></div>
+                {% endif %}
+
                 <h4 class="font-bold text-[#D97757]">{{ testimonial.name }}</h4>
                 <p class="text-sm text-[#7C9070] font-medium uppercase">{{ testimonial.role }}</p>
             </div>
@@ -27,5 +37,86 @@
             </div>
             {% endfor %}
         </div>
+
+        {% if request.user.is_authenticated %}
+        <div class="mt-16 text-center">
+            <button onclick="document.getElementById('testimonial-modal').classList.remove('hidden')" 
+                    class="group relative inline-flex items-center gap-3 px-10 py-5 bg-[#D97757] text-white rounded-full font-bold shadow-xl hover:shadow-2xl hover:bg-[#c46548] transition-all duration-300 hover:-translate-y-1">
+                <iconify-icon icon="ph:pencil-line-bold" class="text-2xl group-hover:rotate-12 transition-transform"></iconify-icon>
+                Share Your Impact Story
+                <div class="absolute inset-0 rounded-full border-2 border-white/20 animate-pulse"></div>
+            </button>
+        </div>
+
+        <!-- Add Testimonial Modal -->
+        <div id="testimonial-modal" class="hidden fixed inset-0 z-[100] flex items-center justify-center p-6 sm:p-10">
+            <div class="absolute inset-0 bg-[#2D2D2D]/60 backdrop-blur-md transition-opacity" 
+                 onclick="document.getElementById('testimonial-modal').classList.add('hidden')"></div>
+            
+            <div class="relative bg-white w-full max-w-xl rounded-[3rem] p-10 sm:p-14 shadow-2xl border-4 border-[#F2E7D5] transform transition-all">
+                <button onclick="document.getElementById('testimonial-modal').classList.add('hidden')" 
+                        class="absolute top-8 right-8 text-[#5E5E5E] hover:text-[#D97757] transition-colors">
+                    <iconify-icon icon="ph:x-bold" class="text-3xl"></iconify-icon>
+                </button>
+
+                <div class="text-center mb-10">
+                    <div class="w-20 h-20 organic-radius-1 bg-[#F2E7D5] flex items-center justify-center mx-auto mb-6">
+                        <iconify-icon icon="ph:quotes-bold" class="text-[#D97757] text-4xl"></iconify-icon>
+                    </div>
+                    <h3 class="font-display text-4xl font-bold text-[#2D2D2D]">Share Your Whispers</h3>
+                    <p class="text-[#5E5E5E] mt-4">Your story can inspire thousands. Thank you for being part of our journey.</p>
+                </div>
+
+                <form method="POST" enctype="multipart/form-data" class="space-y-6">
+                    {% csrf_token %}
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <div class="space-y-2">
+                            <label class="text-sm font-bold text-[#7C9070] uppercase ml-2">Name</label>
+                            {{ testimonial_form.name }}
+                        </div>
+                        <div class="space-y-2">
+                            <label class="text-sm font-bold text-[#7C9070] uppercase ml-2">Your Role</label>
+                            {{ testimonial_form.role }}
+                        </div>
+                    </div>
+                    <div class="space-y-2">
+                        <label class="text-sm font-bold text-[#7C9070] uppercase ml-2">Your Experience</label>
+                        {{ testimonial_form.content }}
+                    </div>
+                    
+                    <button type="submit" name="testimonial_submit" 
+                            class="w-full py-5 bg-[#7C9070] text-white rounded-2xl font-bold text-lg shadow-lg hover:bg-[#6b7d61] transition-all duration-300 flex items-center justify-center gap-3">
+                        <iconify-icon icon="ph:paper-plane-tilt-bold" class="text-2xl"></iconify-icon>
+                        Submit Your Story
+                    </button>
+                </form>
+            </div>
+        </div>
+        {% else %}
+        <div class="mt-16 text-center">
+            <a href="{% url 'login' %}" class="text-[#D97757] font-bold hover:underline underline-offset-8 flex items-center gap-2 justify-center transition-all">
+                <iconify-icon icon="ph:lock-key-bold"></iconify-icon>
+                Sign in to share your impact story
+            </a>
+        </div>
+        {% endif %}
     </div>
 </section>
+
+<script>
+function toggleTestimonial(btn) {
+    const p = btn.previousElementSibling;
+    const span = btn.querySelector('span');
+    const icon = btn.querySelector('iconify-icon');
+    
+    if (p.classList.contains('line-clamp-4')) {
+        p.classList.remove('line-clamp-4');
+        span.innerText = 'Read Less';
+        icon.icon = 'ph:caret-up-bold';
+    } else {
+        p.classList.add('line-clamp-4');
+        span.innerText = 'Read More';
+        icon.icon = 'ph:caret-down-bold';
+    }
+}
+</script>

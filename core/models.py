@@ -1,12 +1,14 @@
 from django.db import models
 from django.utils.text import slugify
 from django.contrib.auth.models import User
+
 # Create your models here.
 
 
 class Category(models.Model):
     name = models.CharField(max_length=100)
     slug = models.SlugField(unique=True, blank=True)
+    color = models.CharField(max_length=20, default="#7C9070", help_text="Hex color code for tags (e.g. #D97757)")
 
     def save(self, *args, **kwargs):
         if not self.slug:
@@ -30,6 +32,15 @@ class Event(models.Model):
 
     def __str__(self):
         return self.title
+
+
+class EventImage(models.Model):
+    event = models.ForeignKey(Event, on_delete=models.CASCADE, related_name='images')
+    image = models.ImageField(upload_to='events/gallery/')
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"Image for {self.event.title}"
 
 
 class Volunteer(models.Model):
@@ -57,10 +68,11 @@ class Donation(models.Model):
     donor_name = models.CharField(max_length=100)
     email = models.EmailField()
     amount = models.DecimalField(max_digits=10, decimal_places=2)
-    transaction_id = models.CharField(max_length=100, unique=True)
-    status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='pending')
+    transaction_id = models.CharField(max_length=100, unique=True, blank=True, null=True)
+    status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='Pending')
     date=models.DateTimeField(auto_now_add=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True)
+    image = models.ImageField(upload_to='donations/', blank=True, null=True)
 
     def __str__(self):
         return f"{self.donor_name} - {self.amount}"
@@ -94,3 +106,13 @@ class ImpactStatistic(models.Model):
 
     def __str__(self):
         return "Global Impact Statistics"
+
+class GalleryPhoto(models.Model):
+    title = models.CharField(max_length=200, blank=True)
+    image = models.ImageField(upload_to='gallery/')
+    category = models.ForeignKey(Category, on_delete=models.CASCADE, null=True, blank=True, related_name='photos')
+    description = models.TextField(blank=True, null=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return self.title or  f"Photo {self.id}"

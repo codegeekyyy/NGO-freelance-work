@@ -1,0 +1,27 @@
+# Django (standard)
+*.log
+local_settings.py
+db.sqlite3
+db.sqlite3-journal
+
+# Environment Settings
+.env
+.venv
+env/
+venv/
+ENV/
+
+# Python (standard)
+__pycache__/
+*.py[cod]
+*$py.class
+
+# OS / Editor files
+.DS_Store
+.vscode/
+.idea/
+Thumbs.db
+
+# Media and Static Files (Uploaded)
+media/
+static_root/

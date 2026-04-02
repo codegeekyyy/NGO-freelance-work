@@ -1,0 +1,114 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}{{ event.title }} | Leela Foundation{% endblock %}
+
+{% block content %}
+<main class="bg-[#FDFBF7] min-h-screen pb-32">
+    <!-- Hero Section -->
+    <header class="relative pt-32 pb-20 overflow-hidden">
+        <div class="max-w-[1440px] mx-auto px-10 relative z-10">
+            <nav class="mb-12">
+                <a href="{% url 'home' %}" class="inline-flex items-center gap-2 text-[#D97757] font-bold hover:gap-4 transition-all group">
+                    <iconify-icon icon="ph:arrow-left-bold" class="text-xl"></iconify-icon>
+                    Back to Journey
+                </a>
+            </nav>
+
+            <div class="grid lg:grid-cols-2 gap-20 items-center">
+                <div>
+                    <div class="inline-flex items-center gap-2 bg-[#F2E7D5] px-5 py-2 rounded-full text-[#D97757] text-xs font-bold uppercase tracking-widest mb-8">
+                        <iconify-icon icon="ph:calendar-star-bold" class="text-lg"></iconify-icon>
+                        {{ event.Category.name }}
+                    </div>
+                    <h1 class="font-display text-6xl md:text-7xl font-bold text-[#2D2D2D] leading-[1.1] mb-10">
+                        {{ event.title }}
+                    </h1>
+                    
+                    <div class="flex flex-wrap gap-10">
+                        <div class="flex items-center gap-4">
+                            <div class="w-14 h-14 bg-white rounded-2xl flex items-center justify-center shadow-sm text-[#7C9070]">
+                                <iconify-icon icon="ph:calendar-blank-bold" class="text-2xl"></iconify-icon>
+                            </div>
+                            <div>
+                                <p class="text-xs font-bold text-[#7C9070] uppercase tracking-wider">Date</p>
+                                <p class="text-[#2D2D2D] font-bold">{{ event.date|date:"F d, Y" }}</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-4">
+                            <div class="w-14 h-14 bg-white rounded-2xl flex items-center justify-center shadow-sm text-[#D97757]">
+                                <iconify-icon icon="ph:map-pin-bold" class="text-2xl"></iconify-icon>
+                            </div>
+                            <div>
+                                <p class="text-xs font-bold text-[#D97757] uppercase tracking-wider">Location</p>
+                                <p class="text-[#2D2D2D] font-bold">{{ event.location }}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="relative">
+                    <div class="relative z-10 rounded-[4rem] overflow-hidden shadow-2xl aspect-square border-8 border-white">
+                        {% if event.image %}
+                            <img src="{{ event.image.url }}" alt="{{ event.title }}" class="w-full h-full object-cover">
+                        {% else %}
+                            <div class="w-full h-full bg-[#F2E7D5] flex items-center justify-center">
+                                <iconify-icon icon="ph:image-square-bold" class="text-9xl text-[#D97757]/20"></iconify-icon>
+                            </div>
+                        {% endif %}
+                    </div>
+                    <!-- Decorative elements -->
+                    <div class="absolute -top-10 -right-10 w-40 h-40 bg-[#7C9070]/10 organic-radius-1 -z-0"></div>
+                    <div class="absolute -bottom-10 -left-10 w-60 h-60 bg-[#D97757]/10 organic-radius-2 -z-0"></div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Background Blur -->
+        <div class="absolute top-0 right-0 w-[500px] h-[500px] bg-[#D97757]/5 blur-[120px] rounded-full -translate-y-1/2 translate-x-1/2"></div>
+    </header>
+
+    <!-- Content Section -->
+    <section class="max-w-[1440px] mx-auto px-10">
+        <div class="max-w-4xl bg-white rounded-[3rem] p-12 md:p-20 shadow-sm border border-[#F2E7D5]/50">
+            <h2 class="font-display text-4xl font-bold text-[#2D2D2D] mb-8 flex items-center gap-4">
+                About the Event
+                <div class="h-1 w-20 bg-[#D97757]/20 rounded-full"></div>
+            </h2>
+            
+            <div class="prose prose-xl prose-stone max-w-none text-[#5E5E5E] leading-loose mb-16">
+                {{ event.description|linebreaks }}
+            </div>
+
+            <!-- Gallery Section -->
+            {% if event.images.all %}
+            <div class="mt-16 pt-16 border-t border-[#F2E7D5]">
+                <h3 class="font-display text-3xl font-bold text-[#2D2D2D] mb-10 flex items-center gap-4">
+                    Event Gallery
+                    <div class="h-0.5 w-12 bg-[#7C9070]/30 rounded-full"></div>
+                </h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    {% for img in event.images.all %}
+                    <div class="group relative overflow-hidden rounded-3xl aspect-[4/3] bg-[#F2E7D5]/20 shadow-sm transition-all hover:shadow-xl hover:-translate-y-1">
+                        <img src="{{ img.image.url }}" alt="Event photo" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+            {% endif %}
+
+            <!-- Call to Action -->
+            <div class="mt-20 p-10 bg-[#7C9070]/5 rounded-[2.5rem] border border-[#7C9070]/20 flex flex-col md:flex-row items-center justify-between gap-8">
+                <div>
+                    <h4 class="font-display text-2xl font-bold text-[#2D2D2D] mb-2">Want to be part of our next ripple?</h4>
+                    <p class="text-[#5E5E5E]">Join us as a volunteer or supporter and help us make a difference.</p>
+                </div>
+                <a href="/#volunteer" class="px-10 py-5 bg-[#7C9070] text-white rounded-full font-bold shadow-lg hover:bg-[#6b7d61] transition-all whitespace-nowrap">
+                    Join as Volunteer
+                </a>
+            </div>
+        </div>
+    </section>
+</main>
+{% endblock %}

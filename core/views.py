@@ -22,6 +22,10 @@ def home(request):
         if 'volunteer_submit' in request.POST:
             volunteer_form = VolunteerForm(request.POST)
             if volunteer_form.is_valid():
+                if request.user.is_authenticated and Volunteer.objects.filter(user=request.user).exists():
+                    messages.error(request, 'You have already submitted a volunteer application.')
+                    return redirect('home')
+
                 volunteer = volunteer_form.save(commit=False)
                 if request.user.is_authenticated:
                     volunteer.user = request.user
@@ -260,6 +264,10 @@ def volunteer_view(request):
     if request.method == 'POST':
         volunteer_form = VolunteerForm(request.POST)
         if volunteer_form.is_valid():
+            if request.user.is_authenticated and Volunteer.objects.filter(user=request.user).exists():
+                messages.error(request, 'You have already submitted a volunteer application.')
+                return redirect('volunteer')
+                
             volunteer = volunteer_form.save(commit=False)
             if request.user.is_authenticated:
                 volunteer.user = request.user

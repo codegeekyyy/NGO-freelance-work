@@ -1,51 +1,63 @@
 {% load static %}
 <header class="bg-[#FDFBF7] border-b border-[#F2E7D5] sticky top-0 z-50 shadow-sm">
-    <nav class="max-w-[1440px] mx-auto px-10 h-40 flex items-center justify-between">
+    <nav class="max-w-[1440px] mx-auto px-10 h-[100px] flex items-center justify-between">
         <a href="{% url 'home' %}" id="brand-logo-link" class="flex items-center gap-3 group">
-            <img src="{% static 'core/images/logo.png' %}" alt="Leela Foundation" class="h-32 w-auto transition-transform group-hover:scale-105 filter drop-shadow-md">
+            <img src="{% static 'core/images/logo.png' %}" alt="Leela Foundation"
+                class="h-[150px] w-auto transition-transform group-hover:scale-105 filter drop-shadow-md -translate-y-2">
             <span class="sr-only">Leela Foundation</span>
         </a>
 
-        <div class="hidden lg:flex items-center gap-12 font-medium text-[#7C9070]">
-            <a href="{% url 'stories' %}" id="nav-stories-link" class="hover:text-[#D97757] transition-colors">Stories</a>
-            <a href="{% url 'impact' %}" id="nav-impact-link" class="hover:text-[#D97757] transition-colors">Our Impact</a>
-            <a href="{% url 'gallery' %}" id="nav-gallery-link" class="hover:text-[#D97757] transition-colors">Gallery</a>
-            <a href="{% url 'volunteer' %}" id="nav-volunteer-link" class="hover:text-[#D97757] transition-colors">Join Us</a>
+        <div class="hidden lg:flex items-center gap-8 font-medium text-[#7C9070]">
+            <a href="{% url 'stories' %}" id="nav-stories-link"
+                class="hover:text-[#D97757] transition-colors">Stories</a>
+            <a href="{% url 'impact' %}" id="nav-impact-link" class="hover:text-[#D97757] transition-colors">Our
+                Impact</a>
+            <a href="{% url 'gallery' %}" id="nav-gallery-link"
+                class="hover:text-[#D97757] transition-colors">Gallery</a>
+            <a href="{% url 'volunteer' %}" id="nav-volunteer-link" class="hover:text-[#D97757] transition-colors">Join
+                Us</a>
             <a href="{% url 'about' %}" id="nav-about-link" class="hover:text-[#D97757] transition-colors">About</a>
         </div>
 
         <div class="flex items-center gap-6">
             {% if user.is_authenticated %}
-                <a href="{% url 'dashboard' %}" id="nav-dashboard-link" class="hidden md:block text-[#2D2D2D] font-bold hover:underline">Dashboard</a>
-                <form action="{% url 'logout' %}" method="post" class="hidden md:block">
-                    {% csrf_token %}
-                    <button type="submit" id="nav-logout-link" class="text-[#D97757] font-bold hover:underline">Sign Out</button>
-                </form>
+            <a href="{% url 'dashboard' %}" id="nav-dashboard-link"
+                class="hidden md:block text-[#2D2D2D] font-bold hover:underline">Dashboard</a>
+            <form action="{% url 'logout' %}" method="post" class="hidden md:block">
+                {% csrf_token %}
+                <button type="submit" id="nav-logout-link" class="text-[#D97757] font-bold hover:underline">Sign
+                    Out</button>
+            </form>
             {% else %}
-                <a href="{% url 'login' %}" id="nav-login-link" class="hidden md:block text-[#2D2D2D] font-bold hover:underline">Sign In</a>
+            <a href="{% url 'login' %}" id="nav-login-link"
+                class="hidden md:block text-[#2D2D2D] font-bold hover:underline">Sign In</a>
             {% endif %}
-            <a href="{% url 'donate' %}" id="nav-donate-btn" class="bg-[#D97757] text-white px-6 md:px-8 py-3 md:py-3.5 rounded-full font-bold hover:shadow-lg transition-all hover:-translate-y-0.5 text-sm md:text-base">
+            <a href="{% url 'donate' %}" id="nav-donate-btn"
+                class="bg-[#D97757] text-white px-5 md:px-6 py-2 md:py-2.5 rounded-full font-bold hover:shadow-lg transition-all hover:-translate-y-0.5 text-sm md:text-base">
                 Give Growth
             </a>
             <!-- Mobile Menu Toggle -->
-            <button onclick="toggleMobileMenu()" class="lg:hidden text-[#2D2D2D] text-3xl flex items-center" id="mobile-menu-btn">
+            <button onclick="toggleMobileMenu()" class="lg:hidden text-[#2D2D2D] text-3xl flex items-center"
+                id="mobile-menu-btn">
                 <iconify-icon icon="ph:list-bold" id="menu-icon"></iconify-icon>
             </button>
         </div>
     </nav>
 
     <!-- Mobile Menu Overlay -->
-    <div id="mobile-menu" class="fixed inset-0 bg-[#FDFBF7] z-50 translate-x-full transition-transform duration-300 lg:hidden">
-        <div class="p-10 flex flex-col h-full">
+    <div id="mobile-menu"
+        class="fixed inset-0 bg-[#FDFBF7] z-50 translate-x-full transition-transform duration-300 lg:hidden">
+        <div class="p-6 flex flex-col h-full">
             <div class="flex items-center justify-between mb-16">
                 <a href="{% url 'home' %}" class="flex items-center gap-3">
-                    <img src="{% static 'core/images/logo.png' %}" alt="Leela Foundation" class="h-32 w-auto filter drop-shadow-md">
+                    <img src="{% static 'core/images/logo.png' %}" alt="Leela Foundation"
+                        class="h-14 w-auto filter drop-shadow-md">
                 </a>
                 <button onclick="toggleMobileMenu()" class="text-[#2D2D2D] text-3xl">
                     <iconify-icon icon="ph:x-bold"></iconify-icon>
                 </button>
             </div>
-            
+
             <div class="flex flex-col gap-8 text-2xl font-bold text-[#2D2D2D]">
                 <a href="{% url 'stories' %}" onclick="toggleMobileMenu()" class="hover:text-[#D97757]">Stories</a>
                 <a href="{% url 'impact' %}" onclick="toggleMobileMenu()" class="hover:text-[#D97757]">Our Impact</a>
@@ -56,15 +68,21 @@
 
             <div class="mt-auto space-y-4">
                 {% if user.is_authenticated %}
-                    <a href="{% url 'dashboard' %}" onclick="toggleMobileMenu()" class="block w-full text-center py-4 bg-[#7C9070] text-white rounded-2xl font-bold text-xl">Dashboard</a>
-                    <form action="{% url 'logout' %}" method="post" class="block w-full">
-                        {% csrf_token %}
-                        <button type="submit" onclick="toggleMobileMenu()" class="w-full text-center py-4 border-2 border-[#D97757] text-[#D97757] rounded-2xl font-bold text-xl">Sign Out</button>
-                    </form>
+                <a href="{% url 'dashboard' %}" onclick="toggleMobileMenu()"
+                    class="block w-full text-center py-4 bg-[#7C9070] text-white rounded-2xl font-bold text-xl">Dashboard</a>
+                <form action="{% url 'logout' %}" method="post" class="block w-full">
+                    {% csrf_token %}
+                    <button type="submit" onclick="toggleMobileMenu()"
+                        class="w-full text-center py-4 border-2 border-[#D97757] text-[#D97757] rounded-2xl font-bold text-xl">Sign
+                        Out</button>
+                </form>
                 {% else %}
-                    <a href="{% url 'login' %}" onclick="toggleMobileMenu()" class="block w-full text-center py-4 border-2 border-[#F2E7D5] text-[#2D2D2D] rounded-2xl font-bold text-xl">Sign In</a>
+                <a href="{% url 'login' %}" onclick="toggleMobileMenu()"
+                    class="block w-full text-center py-4 border-2 border-[#F2E7D5] text-[#2D2D2D] rounded-2xl font-bold text-xl">Sign
+                    In</a>
                 {% endif %}
-                <a href="{% url 'donate' %}" onclick="toggleMobileMenu()" class="block w-full bg-[#D97757] text-white text-center py-5 rounded-2xl font-bold text-xl">
+                <a href="{% url 'donate' %}" onclick="toggleMobileMenu()"
+                    class="block w-full bg-[#D97757] text-white text-center py-5 rounded-2xl font-bold text-xl">
                     Give Growth
                 </a>
             </div>
@@ -76,7 +94,7 @@
     function toggleMobileMenu() {
         const menu = document.getElementById('mobile-menu');
         const isOpened = !menu.classList.contains('translate-x-full');
-        
+
         if (isOpened) {
             menu.classList.add('translate-x-full');
             document.body.style.overflow = '';

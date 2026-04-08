@@ -8,7 +8,8 @@
     <!-- Hero Section -->
     <header class="pt-32 pb-20 overflow-hidden relative">
         <div class="max-w-[1440px] mx-auto px-10 relative z-10 text-center">
-            <div class="inline-flex items-center gap-3 text-[#D97757] font-bold uppercase tracking-widest mb-6 px-5 py-2 bg-[#F2E7D5]/30 rounded-full">
+            <div
+                class="inline-flex items-center gap-3 text-[#D97757] font-bold uppercase tracking-widest mb-6 px-5 py-2 bg-[#F2E7D5]/30 rounded-full">
                 <iconify-icon icon="ph:heart-bold" class="text-2xl"></iconify-icon>
                 <span>Heart of the Journey</span>
             </div>
@@ -16,46 +17,62 @@
                 About <span class="text-[#7C9070]">Leela Foundation</span>
             </h1>
             <p class="text-xl text-[#5E5E5E] max-w-2xl mx-auto leading-relaxed">
-                “एक कदम आप बढ़ाइए, हजारों कदम समाज आपके साथ बढ़ेगा।” We believe in creating a ripple effect of change that lasts for generations.
+                “एक कदम आप बढ़ाइए, हजारों कदम समाज आपके साथ बढ़ेगा।” We believe in creating a ripple effect of change
+                that lasts for generations.
             </p>
         </div>
+
         <!-- Background Blur -->
-        <div class="absolute top-0 right-0 w-[500px] h-[500px] bg-[#D97757]/10 blur-[120px] rounded-full -translate-y-1/2 translate-x-1/2"></div>
+        <div
+            class="absolute top-0 right-0 w-[500px] h-[500px] bg-[#D97757]/10 blur-[120px] rounded-full -translate-y-1/2 translate-x-1/2">
+        </div>
     </header>
 
     <!-- Mission Section -->
     <section class="py-32 bg-white">
         <div class="max-w-[1440px] mx-auto px-10">
             <div class="grid lg:grid-cols-2 gap-20 items-center">
+
+                <!-- Image -->
                 <div class="relative">
-                    <div class="relative z-10 rounded-[4rem] overflow-hidden shadow-2xl aspect-square border-8 border-white">
-                        <img src="https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?ixlib=rb-1.2.1&auto=format&fit=crop&w=1748&q=80" alt="Sustainability" class="w-full h-full object-cover">
+                    <div
+                        class="relative z-10 rounded-[4rem] overflow-hidden shadow-2xl aspect-square border-8 border-white">
+                        <img src="https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?auto=format&fit=crop&w=1748&q=80"
+                            alt="Sustainability" class="w-full h-full object-cover object-center">
                     </div>
                     <div class="absolute -bottom-10 -left-10 w-60 h-60 bg-[#D97757]/10 organic-radius-1 -z-0"></div>
                 </div>
+
+                <!-- Text -->
                 <div class="space-y-10">
                     <h2 class="font-display text-5xl font-bold text-[#2D2D2D] leading-tight text-center lg:text-left">
                         “इंसानियत से बड़ा कोई <span class="text-[#7C9070]">धर्म नहीं होता।”</span>
                     </h2>
                     <p class="text-[#5E5E5E] text-xl leading-relaxed">
-                        Leela Foundation was founded with a single goal: to empower communities through education, health, and sustainable development. We believe in the power of localized action to create global impact.
+                        Leela Foundation was founded with a single goal: to empower communities through education,
+                        health, and sustainable development. We believe in the power of localized action to create
+                        global impact.
                     </p>
+
                     <div class="grid grid-cols-2 gap-10">
                         <div class="space-y-4">
                             <h4 class="font-display text-2xl font-bold text-[#D97757]">The Vision</h4>
-                            <p class="text-[#5E5E5E]">Creating a world where every community has the resources to thrive independently.</p>
+                            <p class="text-[#5E5E5E]">Creating a world where every community has the resources to thrive
+                                independently.</p>
                         </div>
                         <div class="space-y-4">
                             <h4 class="font-display text-2xl font-bold text-[#7C9070]">The Mission</h4>
-                            <p class="text-[#5E5E5E]">Implementing sustainable solutions for education and health at the grassroots level.</p>
+                            <p class="text-[#5E5E5E]">Implementing sustainable solutions for education and health at the
+                                grassroots level.</p>
                         </div>
                     </div>
                 </div>
+
             </div>
         </div>
     </section>
 
-    <!-- Impact Section Summary -->
+    <!-- Impact Section -->
     {% include 'includes/impact.html' %}
 
     <!-- Team Section -->
@@ -65,44 +82,97 @@
                 <h2 class="font-display text-5xl font-bold text-[#2D2D2D] mb-6">Our Core Team</h2>
                 <p class="text-[#5E5E5E]">Dedicated individuals working behind the scenes to make it all happen.</p>
             </div>
-            
-            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-12 text-center">
+
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-16 text-center">
+                <!-- Member 1 -->
                 <div class="space-y-6 group">
-                    <div class="w-48 h-48 mx-auto organic-radius-1 overflow-hidden border-4 border-white shadow-xl transition-transform group-hover:scale-105">
-                        <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Ranju" alt="Founder" class="w-full h-full object-cover bg-[#F2E7D5]">
+                    <div class="relative w-64 h-64 mx-auto group-hover:scale-105 transition-all duration-500">
+                        <!-- Frame Backdrop -->
+                        <div class="absolute inset-0 bg-[#F2E7D5] organic-radius-2 rotate-6 group-hover:rotate-12 transition-transform duration-500"></div>
+                        <!-- Image Container -->
+                        <div class="relative z-10 h-full w-full organic-radius-1 overflow-hidden border-4 border-white shadow-2xl bg-white">
+                            <img src="{% static 'core/images/RanjuBala.jpeg' %}"
+                                 alt="Founder"
+                                 class="w-full h-full object-cover object-[center_10%]">
+                        </div>
                     </div>
-                    <h4 class="font-display text-2xl font-bold text-[#2D2D2D]">RanjuBala Singh</h4>
-                    <p class="text-[#D97757] font-bold uppercase tracking-wider text-sm">Founder</p>
+                    <div class="space-y-2">
+                        <h4 class="font-display text-2xl font-bold text-[#2D2D2D]">RanjuBala Singh</h4>
+                        <p class="text-[#D97757] font-bold uppercase tracking-wider text-sm">Founder</p>
+                    </div>
                 </div>
+
+                <!-- Member 2 -->
                 <div class="space-y-6 group">
-                    <div class="w-48 h-48 mx-auto organic-radius-1 overflow-hidden border-4 border-white shadow-xl transition-transform group-hover:scale-105">
-                        <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Manju" alt="Executive Director" class="w-full h-full object-cover bg-[#F2E7D5]">
+                    <div class="relative w-64 h-64 mx-auto group-hover:scale-105 transition-all duration-500">
+                        <!-- Frame Backdrop -->
+                        <div class="absolute inset-0 bg-[#7C9070]/20 organic-radius-1 -rotate-6 group-hover:-rotate-9 transition-transform duration-500"></div>
+                        <!-- Image Container -->
+                        <div class="relative z-10 h-full w-full organic-radius-1 overflow-hidden border-4 border-white shadow-2xl bg-white">
+                            <img src="{% static 'core/images/ManjuBharti.jpeg' %}"
+                                 alt="Executive Director"
+                                 class="w-full h-full object-cover object-[center_10%]">
+                        </div>
                     </div>
-                    <h4 class="font-display text-2xl font-bold text-[#2D2D2D]">Manju Bharti</h4>
-                    <p class="text-[#D97757] font-bold uppercase tracking-wider text-sm">Executive Director</p>
+                    <div class="space-y-2">
+                        <h4 class="font-display text-2xl font-bold text-[#2D2D2D]">Manju Bharti</h4>
+                        <p class="text-[#D97757] font-bold uppercase tracking-wider text-sm">Executive Director</p>
+                    </div>
                 </div>
+
+                <!-- Member 3 -->
                 <div class="space-y-6 group">
-                    <div class="w-48 h-48 mx-auto organic-radius-1 overflow-hidden border-4 border-white shadow-xl transition-transform group-hover:scale-105">
-                        <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Raj" alt="Executive Director" class="w-full h-full object-cover bg-[#F2E7D5]">
+                    <div class="relative w-64 h-64 mx-auto group-hover:scale-105 transition-all duration-500">
+                        <!-- Frame Backdrop -->
+                        <div class="absolute inset-0 bg-[#D97757]/20 organic-radius-2 rotate-3 group-hover:rotate-6 transition-transform duration-500"></div>
+                        <!-- Image Container -->
+                        <div class="relative z-10 h-full w-full organic-radius-1 overflow-hidden border-4 border-white shadow-2xl bg-white">
+                            <img src="{% static 'core/images/Rajlaksmigupta.jpeg' %}"
+                                 alt="Executive Director"
+                                 class="w-full h-full object-cover object-[center_10%]">
+                        </div>
                     </div>
-                    <h4 class="font-display text-2xl font-bold text-[#2D2D2D]">Rajlakshmi Gupta</h4>
-                    <p class="text-[#D97757] font-bold uppercase tracking-wider text-sm">Executive Director</p>
+                    <div class="space-y-2">
+                        <h4 class="font-display text-2xl font-bold text-[#2D2D2D]">Rajlakshmi Gupta</h4>
+                        <p class="text-[#D97757] font-bold uppercase tracking-wider text-sm">Executive Director</p>
+                    </div>
                 </div>
+
+                <!-- Member 4 -->
                 <div class="space-y-6 group">
-                    <div class="w-48 h-48 mx-auto organic-radius-1 overflow-hidden border-4 border-white shadow-xl transition-transform group-hover:scale-105">
-                        <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Rekha" alt="Executive Director" class="w-full h-full object-cover bg-[#F2E7D5]">
+                    <div class="relative w-64 h-64 mx-auto group-hover:scale-105 transition-all duration-500">
+                        <!-- Frame Backdrop -->
+                        <div class="absolute inset-0 bg-[#F2E7D5] organic-radius-1 -rotate-3 group-hover:-rotate-6 transition-transform duration-500"></div>
+                        <!-- Image Container -->
+                        <div class="relative z-10 h-full w-full organic-radius-1 overflow-hidden border-4 border-white shadow-2xl bg-white">
+                            <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Rekha"
+                                 alt="Executive Director"
+                                 class="w-full h-full object-cover object-[center_10%] bg-[#F2E7D5]">
+                        </div>
                     </div>
-                    <h4 class="font-display text-2xl font-bold text-[#2D2D2D]">Rekha Singh</h4>
-                    <p class="text-[#D97757] font-bold uppercase tracking-wider text-sm">Executive Director</p>
+                    <div class="space-y-2">
+                        <h4 class="font-display text-2xl font-bold text-[#2D2D2D]">Rekha Singh</h4>
+                        <p class="text-[#D97757] font-bold uppercase tracking-wider text-sm">Executive Director</p>
+                    </div>
                 </div>
+
+                <!-- Member 5 -->
                 <div class="space-y-6 group">
-                    <div class="w-48 h-48 mx-auto organic-radius-1 overflow-hidden border-4 border-white shadow-xl transition-transform group-hover:scale-105">
-                        <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Rajesh" alt="Legal Advisor" class="w-full h-full object-cover bg-[#F2E7D5]">
+                    <div class="relative w-64 h-64 mx-auto group-hover:scale-105 transition-all duration-500">
+                        <!-- Frame Backdrop -->
+                        <div class="absolute inset-0 bg-[#7C9070]/20 organic-radius-2 rotate-6 group-hover:rotate-12 transition-transform duration-500"></div>
+                        <!-- Image Container -->
+                        <div class="relative z-10 h-full w-full organic-radius-1 overflow-hidden border-4 border-white shadow-2xl bg-white">
+                            <img src="{% static 'core/images/Rajesh Shrivastav.jpeg' %}"
+                                 alt="Legal Advisor"
+                                 class="w-full h-full object-cover object-[center_30%] bg-[#F2E7D5]">
+                        </div>
                     </div>
-                    <h4 class="font-display text-2xl font-bold text-[#2D2D2D]">Rajesh Shrivastav</h4>
-                    <p class="text-[#D97757] font-bold uppercase tracking-wider text-sm">Legal Advisor(Advocate Banaras Bar Council)</p>
+                    <div class="space-y-2">
+                        <h4 class="font-display text-2xl font-bold text-[#2D2D2D]">Rajesh Shrivastav</h4>
+                        <p class="text-[#D97757] font-bold uppercase tracking-wider text-sm">Legal Advisor (Advocate Banaras Bar Council)</p>
+                    </div>
                 </div>
-            </div>
         </div>
     </section>
 </main>

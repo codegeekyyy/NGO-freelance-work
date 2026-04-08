@@ -1,7 +1,7 @@
 # Django (standard)
 *.log
 local_settings.py
-db.sqlite3
+
 db.sqlite3-journal
 
 # Environment Settings
@@ -23,5 +23,5 @@ __pycache__/
 Thumbs.db
 
 # Media and Static Files (Uploaded)
-media/
+
 static_root/

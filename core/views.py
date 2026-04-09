@@ -22,11 +22,16 @@ def home(request):
         if 'volunteer_submit' in request.POST:
             volunteer_form = VolunteerForm(request.POST)
             if volunteer_form.is_valid():
-                if request.user.is_authenticated and Volunteer.objects.filter(user=request.user).exists():
-                    messages.error(request, 'You have already submitted a volunteer application.')
-                    return redirect('home')
-
+                # If user is logged in, check if they already have an application
+                volunteer_instance = None
+                if request.user.is_authenticated:
+                    volunteer_instance = Volunteer.objects.filter(user=request.user).first()
+                
                 volunteer = volunteer_form.save(commit=False)
+                if volunteer_instance:
+                    # Update existing record
+                    volunteer.id = volunteer_instance.id
+                
                 if request.user.is_authenticated:
                     volunteer.user = request.user
                 volunteer.save()
@@ -267,11 +272,16 @@ def volunteer_view(request):
     if request.method == 'POST':
         volunteer_form = VolunteerForm(request.POST)
         if volunteer_form.is_valid():
-            if request.user.is_authenticated and Volunteer.objects.filter(user=request.user).exists():
-                messages.error(request, 'You have already submitted a volunteer application.')
-                return redirect('volunteer')
+            # If user is logged in, check if they already have an application
+            volunteer_instance = None
+            if request.user.is_authenticated:
+                volunteer_instance = Volunteer.objects.filter(user=request.user).first()
                 
             volunteer = volunteer_form.save(commit=False)
+            if volunteer_instance:
+                # Update existing record
+                volunteer.id = volunteer_instance.id
+            
             if request.user.is_authenticated:
                 volunteer.user = request.user
             volunteer.save()

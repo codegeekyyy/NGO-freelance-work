@@ -29,7 +29,7 @@ SECRET_KEY = os.getenv('SECRET_KEY', 'django-insecure-ir3mzcmeinz1obg&c9mthv@@57
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.getenv('DEBUG', 'True') == 'True'
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['leelafoundation.pythonanywhere.com', '127.0.0.1', 'localhost']
 
 SITE_ID = 1
 # Application definition

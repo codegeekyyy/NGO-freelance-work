@@ -29,7 +29,7 @@ SECRET_KEY = os.getenv('SECRET_KEY', 'django-insecure-ir3mzcmeinz1obg&c9mthv@@57
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.getenv('DEBUG', 'True') == 'True'
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['127.0.0.1', 'localhost', 'leelafoundation.pythonanywhere.com']
 
 SITE_ID = 1
 # Application definition
@@ -132,7 +132,13 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/6.0/howto/static-files/
 
-STATIC_URL = 'static/'
+STATIC_URL = '/static/'
+
+STATICFILES_DIRS = [
+    BASE_DIR / 'core/static',
+]
+
+STATIC_ROOT = BASE_DIR / 'staticfiles'
 
 # Media files (Uploaded by users/admin)
 MEDIA_URL = 'media/'
@@ -144,17 +150,15 @@ MEDIA_ROOT = BASE_DIR / 'media'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
-# Email Settings for Gmail SMTP
-EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_PORT = 587
-EMAIL_USE_TLS = True
-EMAIL_HOST_USER = os.getenv('EMAIL_HOST_USER', 'leelafoundation323@gmail.com')
-EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD', '') 
-DEFAULT_FROM_EMAIL = os.getenv('EMAIL_HOST_USER', 'leelafoundation323@gmail.com')
+# -----------------------------------------------------------------
+# Brevo Transactional Email (REST API over HTTPS — works on PythonAnywhere free)
+# Gmail SMTP (ports 587/465) is blocked on PythonAnywhere free accounts.
+# -----------------------------------------------------------------
+BREVO_API_KEY = os.getenv('BREVO_API_KEY', '')
 
-# (Old SendGrid - for reference/transition)
-SENDGRID_API_KEY = os.getenv('SENDGRID_API_KEY', 'your-api-key-here')
+# Dummy email backend — actual sending is done via brevo_email.py helper
+EMAIL_BACKEND = 'django.core.mail.backends.dummy.EmailBackend'
+
 
 # Where to redirect after login/logout
 LOGIN_REDIRECT_URL = 'dashboard'

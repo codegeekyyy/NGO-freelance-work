@@ -4,7 +4,7 @@ import json
 from django.db.models import Sum
 from django.contrib import messages
 from .forms import VolunteerForm, DonationForm, ContactForm, GalleryPhotoForm, TestimonialForm
-from django.core.mail import send_mail
+from .brevo_email import send_brevo_email
 from django.conf import settings
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.decorators import login_required
@@ -30,12 +30,9 @@ def home(request):
                 if request.user.is_authenticated:
                     volunteer.user = request.user
                 volunteer.save()
-                send_mail(
-                    'New Volunteer Application',
-                    f'Name: {volunteer.name}\nEmail: {volunteer.email}',
-                    settings.DEFAULT_FROM_EMAIL,
-                    ['leelafoundation323@gmail.com'],
-                    fail_silently=True,
+                send_brevo_email(
+                    subject='New Volunteer Application',
+                    body=f'Name: {volunteer.name}\nEmail: {volunteer.email}',
                 )
                 messages.success(request, 'Thank you for your interest in volunteering!')
                 return redirect('home')
@@ -44,12 +41,9 @@ def home(request):
             contact_form = ContactForm(request.POST)
             if contact_form.is_valid():
                 contact_form.save()
-                send_mail(
-                    f'New Contact: {contact_form.cleaned_data["subject"]}',
-                    f'From: {contact_form.cleaned_data["name"]}\nMessage: {contact_form.cleaned_data["message"]}',
-                    settings.DEFAULT_FROM_EMAIL,
-                    ['leelafoundation323@gmail.com'],
-                    fail_silently=True,
+                send_brevo_email(
+                    subject=f'New Contact: {contact_form.cleaned_data["subject"]}',
+                    body=f'From: {contact_form.cleaned_data["name"]}\nMessage: {contact_form.cleaned_data["message"]}',
                 )
                 messages.success(request, 'Your message has been sent successfully!')
                 return redirect('home')
@@ -115,22 +109,18 @@ def donate(request):
             
             # Email Notification to NGO
             proof_link = f" (Proof Image: {request.build_absolute_uri(donation.image.url)})" if donation.image else ""
-            try:
-                send_mail(
-                    f'New Donation Proof: ₹{donation.amount} from {donation.donor_name}',
+            send_brevo_email(
+                subject=f'New Donation Proof: ₹{donation.amount} from {donation.donor_name}',
+                body=(
                     f'You have received a new donation notification!\n\n'
                     f'Donor: {donation.donor_name}\n'
                     f'Email: {donation.email}\n'
                     f'Amount: ₹{donation.amount}\n'
                     f'Transaction ID: {donation.transaction_id or "Not Provided"}\n'
-                    f'Payment Proof Status: {"Attached" if donation.image else "No Image Provided"}\n{proof_link}',
-                    settings.DEFAULT_FROM_EMAIL,
-                    ['leelafoundation323@gmail.com'],
-                    fail_silently=False,
-                )
-                messages.success(request, f'Thank you, {donation.donor_name}! Your details and proof have been successfully recorded.')
-            except:
-                messages.success(request, f'Thank you, {donation.donor_name}! Your details have been recorded successfully.')
+                    f'Payment Proof Status: {"Attached" if donation.image else "No Image Provided"}\n{proof_link}'
+                ),
+            )
+            messages.success(request, f'Thank you, {donation.donor_name}! Your details and proof have been successfully recorded.')
                 
             return redirect('donate')
             
@@ -272,12 +262,9 @@ def volunteer_view(request):
             if request.user.is_authenticated:
                 volunteer.user = request.user
             volunteer.save()
-            send_mail(
-                'New Volunteer Application',
-                f'Name: {volunteer.name}\nEmail: {volunteer.email}',
-                settings.DEFAULT_FROM_EMAIL,
-                ['leelafoundation323@gmail.com'],
-                fail_silently=True,
+            send_brevo_email(
+                subject='New Volunteer Application',
+                body=f'Name: {volunteer.name}\nEmail: {volunteer.email}',
             )
             messages.success(request, 'Thank you for your interest in volunteering!')
             return redirect('volunteer')
@@ -302,12 +289,9 @@ def contact(request):
         contact_form = ContactForm(request.POST)
         if contact_form.is_valid():
             contact_form.save()
-            send_mail(
-                f'New Contact: {contact_form.cleaned_data["subject"]}',
-                f'From: {contact_form.cleaned_data["name"]}\nMessage: {contact_form.cleaned_data["message"]}',
-                settings.DEFAULT_FROM_EMAIL,
-                ['leelafoundation323@gmail.com'],
-                fail_silently=True,
+            send_brevo_email(
+                subject=f'New Contact: {contact_form.cleaned_data["subject"]}',
+                body=f'From: {contact_form.cleaned_data["name"]}\nMessage: {contact_form.cleaned_data["message"]}',
             )
             messages.success(request, 'Your message has been sent successfully!')
             return redirect('contact')

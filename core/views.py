@@ -20,18 +20,14 @@ def home(request):
 
     if request.method == 'POST':
         if 'volunteer_submit' in request.POST:
-            volunteer_form = VolunteerForm(request.POST)
+            # If user is logged in, check if they already have an application to update it
+            instance = None
+            if request.user.is_authenticated:
+                instance = Volunteer.objects.filter(user=request.user).first()
+            
+            volunteer_form = VolunteerForm(request.POST, instance=instance)
             if volunteer_form.is_valid():
-                # If user is logged in, check if they already have an application
-                volunteer_instance = None
-                if request.user.is_authenticated:
-                    volunteer_instance = Volunteer.objects.filter(user=request.user).first()
-                
                 volunteer = volunteer_form.save(commit=False)
-                if volunteer_instance:
-                    # Update existing record
-                    volunteer.id = volunteer_instance.id
-                
                 if request.user.is_authenticated:
                     volunteer.user = request.user
                 volunteer.save()
@@ -270,18 +266,14 @@ def impact(request):
 def volunteer_view(request):
     volunteer_form = VolunteerForm()
     if request.method == 'POST':
-        volunteer_form = VolunteerForm(request.POST)
-        if volunteer_form.is_valid():
-            # If user is logged in, check if they already have an application
-            volunteer_instance = None
-            if request.user.is_authenticated:
-                volunteer_instance = Volunteer.objects.filter(user=request.user).first()
-                
-            volunteer = volunteer_form.save(commit=False)
-            if volunteer_instance:
-                # Update existing record
-                volunteer.id = volunteer_instance.id
+        # If user is logged in, check if they already have an application to update it
+        instance = None
+        if request.user.is_authenticated:
+            instance = Volunteer.objects.filter(user=request.user).first()
             
+        volunteer_form = VolunteerForm(request.POST, instance=instance)
+        if volunteer_form.is_valid():
+            volunteer = volunteer_form.save(commit=False)
             if request.user.is_authenticated:
                 volunteer.user = request.user
             volunteer.save()

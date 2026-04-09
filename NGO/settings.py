@@ -29,7 +29,7 @@ SECRET_KEY = os.getenv('SECRET_KEY', 'django-insecure-ir3mzcmeinz1obg&c9mthv@@57
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.getenv('DEBUG', 'True') == 'True'
 
-ALLOWED_HOSTS = ['127.0.0.1', 'localhost', 'leelafoundation.pythonanywhere.com']
+ALLOWED_HOSTS = []
 
 SITE_ID = 1
 # Application definition
@@ -132,13 +132,7 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/6.0/howto/static-files/
 
-STATIC_URL = '/static/'
-
-STATICFILES_DIRS = [
-    BASE_DIR / 'core/static',
-]
-
-STATIC_ROOT = BASE_DIR / 'staticfiles'
+STATIC_URL = 'static/'
 
 # Media files (Uploaded by users/admin)
 MEDIA_URL = 'media/'
@@ -150,14 +144,18 @@ MEDIA_ROOT = BASE_DIR / 'media'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
+# Email Settings for Gmail SMTP
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
 # -----------------------------------------------------------------
-# Brevo Transactional Email (REST API over HTTPS — works on PythonAnywhere free)
-# Gmail SMTP (ports 587/465) is blocked on PythonAnywhere free accounts.
+# Brevo (Sendinblue) Configuration
 # -----------------------------------------------------------------
 BREVO_API_KEY = os.getenv('BREVO_API_KEY', '')
 
-# Dummy email backend — actual sending is done via brevo_email.py helper
+# We use a custom helper for sending emails via Brevo API.
+# Disabling local SMTP to avoid blocked port issues on PythonAnywhere.
 EMAIL_BACKEND = 'django.core.mail.backends.dummy.EmailBackend'
+DEFAULT_FROM_EMAIL = 'leelafoundation323@gmail.com'
 
 
 # Where to redirect after login/logout

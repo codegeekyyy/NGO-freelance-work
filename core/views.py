@@ -31,8 +31,15 @@ def home(request):
                     volunteer.user = request.user
                 volunteer.save()
                 send_brevo_email(
-                    subject='New Volunteer Application',
-                    body=f'Name: {volunteer.name}\nEmail: {volunteer.email}',
+                    subject=f'New Volunteer Application - {volunteer.name}',
+                    body=(
+                        f'New volunteer application received!\n\n'
+                        f'Name        : {volunteer.name}\n'
+                        f'Email       : {volunteer.email}\n'
+                        f'Phone       : {volunteer.phone or "Not provided"}\n'
+                        f'Motivation  : {volunteer.motivation_to_join or "Not provided"}\n'
+                        f'Skills      : {volunteer.skills or "Not provided"}\n'
+                    ),
                 )
                 messages.success(request, 'Thank you for your interest in volunteering!')
                 return redirect('home')
@@ -42,8 +49,14 @@ def home(request):
             if contact_form.is_valid():
                 contact_form.save()
                 send_brevo_email(
-                    subject=f'New Contact: {contact_form.cleaned_data["subject"]}',
-                    body=f'From: {contact_form.cleaned_data["name"]}\nMessage: {contact_form.cleaned_data["message"]}',
+                    subject=f'New Contact Message: {contact_form.cleaned_data["subject"]}',
+                    body=(
+                        f'New contact message received!\n\n'
+                        f'Name    : {contact_form.cleaned_data["name"]}\n'
+                        f'Email   : {contact_form.cleaned_data["email"]}\n'
+                        f'Subject : {contact_form.cleaned_data["subject"]}\n'
+                        f'Message : {contact_form.cleaned_data["message"]}\n'
+                    ),
                 )
                 messages.success(request, 'Your message has been sent successfully!')
                 return redirect('home')
@@ -107,17 +120,17 @@ def donate(request):
                 donation.user = request.user
             donation.save()
             
-            # Email Notification to NGO
-            proof_link = f" (Proof Image: {request.build_absolute_uri(donation.image.url)})" if donation.image else ""
+            # Email Notification to NGO via Brevo REST API
+            proof_link = f"\nProof Image : {request.build_absolute_uri(donation.image.url)}" if donation.image else ""
             send_brevo_email(
-                subject=f'New Donation Proof: ₹{donation.amount} from {donation.donor_name}',
+                subject=f'New Donation: Rs.{donation.amount} from {donation.donor_name}',
                 body=(
-                    f'You have received a new donation notification!\n\n'
-                    f'Donor: {donation.donor_name}\n'
-                    f'Email: {donation.email}\n'
-                    f'Amount: ₹{donation.amount}\n'
-                    f'Transaction ID: {donation.transaction_id or "Not Provided"}\n'
-                    f'Payment Proof Status: {"Attached" if donation.image else "No Image Provided"}\n{proof_link}'
+                    f'New donation notification received!\n\n'
+                    f'Donor          : {donation.donor_name}\n'
+                    f'Email          : {donation.email}\n'
+                    f'Amount         : Rs.{donation.amount}\n'
+                    f'Transaction ID : {donation.transaction_id or "Not Provided"}\n'
+                    f'Payment Proof  : {"Attached" if donation.image else "Not Provided"}{proof_link}\n'
                 ),
             )
             messages.success(request, f'Thank you, {donation.donor_name}! Your details and proof have been successfully recorded.')
@@ -263,8 +276,15 @@ def volunteer_view(request):
                 volunteer.user = request.user
             volunteer.save()
             send_brevo_email(
-                subject='New Volunteer Application',
-                body=f'Name: {volunteer.name}\nEmail: {volunteer.email}',
+                subject=f'New Volunteer Application - {volunteer.name}',
+                body=(
+                    f'New volunteer application received!\n\n'
+                    f'Name        : {volunteer.name}\n'
+                    f'Email       : {volunteer.email}\n'
+                    f'Phone       : {volunteer.phone or "Not provided"}\n'
+                    f'Motivation  : {volunteer.motivation_to_join or "Not provided"}\n'
+                    f'Skills      : {volunteer.skills or "Not provided"}\n'
+                ),
             )
             messages.success(request, 'Thank you for your interest in volunteering!')
             return redirect('volunteer')
@@ -290,8 +310,14 @@ def contact(request):
         if contact_form.is_valid():
             contact_form.save()
             send_brevo_email(
-                subject=f'New Contact: {contact_form.cleaned_data["subject"]}',
-                body=f'From: {contact_form.cleaned_data["name"]}\nMessage: {contact_form.cleaned_data["message"]}',
+                subject=f'New Contact Message: {contact_form.cleaned_data["subject"]}',
+                body=(
+                    f'New contact message received!\n\n'
+                    f'Name    : {contact_form.cleaned_data["name"]}\n'
+                    f'Email   : {contact_form.cleaned_data["email"]}\n'
+                    f'Subject : {contact_form.cleaned_data["subject"]}\n'
+                    f'Message : {contact_form.cleaned_data["message"]}\n'
+                ),
             )
             messages.success(request, 'Your message has been sent successfully!')
             return redirect('contact')

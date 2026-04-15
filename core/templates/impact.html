@@ -7,49 +7,51 @@
 {% block content %}
 <main class="bg-[#FDFBF7] min-h-screen">
     <!-- Hero Section -->
-    <header class="pt-48 pb-32 overflow-hidden relative min-h-[70vh] flex items-center bg-[#2D2D2D]">
+    <header class="pt-32 md:pt-48 pb-20 md:pb-32 overflow-hidden relative min-h-[50vh] md:min-h-[70vh] flex items-center bg-[#2D2D2D]">
         <!-- Background Image with Overlay -->
         <div class="absolute inset-0 z-0">
             <img src="{% static 'core/images/impact bg.jpg' %}" class="w-full h-full object-cover opacity-60" alt="Impact Background">
             <div class="absolute inset-0 bg-gradient-to-b from-black/20 via-black/10 to-transparent"></div>
         </div>
 
-        <div class="max-w-[1440px] mx-auto px-10 relative z-10 text-center">
-            <div class="inline-flex items-center gap-3 text-white font-bold uppercase tracking-widest mb-8 px-6 py-2 bg-white/10 backdrop-blur-md rounded-full border border-white/20">
-                <iconify-icon icon="ph:sparkles-bold" class="text-2xl text-[#D97757]"></iconify-icon>
+        <div class="max-w-[1440px] mx-auto px-6 md:px-10 relative z-10 text-center">
+            <div class="inline-flex items-center gap-2 md:gap-3 text-white font-bold uppercase tracking-widest mb-6 md:mb-8 px-4 md:px-6 py-2 bg-white/10 backdrop-blur-md rounded-full border border-white/20 text-xs md:text-sm">
+                <iconify-icon icon="ph:sparkles-bold" class="text-xl md:text-2xl text-[#D97757]"></iconify-icon>
                 <span>Waves of Change</span>
             </div>
-            <h1 class="font-display text-6xl md:text-5xl font-bold text-white mb-8 leading-tight drop-shadow-2xl">
-                “एक छोटी सी मदद, किसी की पूरी <span class="text-[#D97757]">दुनिया बदल सकती है।”</span>
+            <h1 class="font-display text-2xl sm:text-3xl md:text-5xl lg:text-6xl font-bold text-white mb-6 md:mb-8 leading-tight drop-shadow-2xl">
+                "एक छोटी सी मदद, किसी की पूरी <span class="text-[#D97757]">दुनिया बदल सकती है।"</span>
             </h1>
-            <p class="text-xl text-gray-200 max-w-3xl mx-auto leading-relaxed drop-shadow-lg">
+            <p class="text-base md:text-xl text-gray-200 max-w-3xl mx-auto leading-relaxed drop-shadow-lg">
                 At Leela Foundation, we believe in measurable change. Explore our journey through the lives we've touched and the community milestones we've achieved.
             </p>
+
+            {% if user.is_staff %}
+            <div class="mt-8 md:mt-12">
+                <button onclick="toggleEventModal()" class="inline-flex items-center gap-2 md:gap-3 px-6 md:px-8 py-3 md:py-4 bg-[#D97757] text-white rounded-full font-bold shadow-xl hover:bg-[#c46548] transition-all hover:scale-105 text-sm md:text-base">
+                    <iconify-icon icon="ph:plus-circle-bold" class="text-xl md:text-2xl"></iconify-icon>
+                    Post New Event
+                </button>
+            </div>
+            {% endif %}
         </div>
     </header>
 
-
-
     <!-- Events Journey Section -->
-    <section class="py-12 bg-white">
-        <div class="max-w-[1440px] mx-auto px-10">
-            <div class="text-center mb-10">
-                <h2 class="font-display text-5xl font-bold text-[#2D2D2D] mb-4">Our Journey in Events</h2>
-                <p class="text-[#5E5E5E] max-w-xl mx-auto">From community workshops to educational drives, every event is a step towards a brighter future.</p>
-            </div>
-            
+    <section class="py-8 md:py-12 bg-white">
+        <div class="max-w-[1440px] mx-auto px-6 md:px-10">
             {% include 'includes/events.html' %}
         </div>
     </section>
 
     <!-- Global CTA -->
-    <section class="pb-32 bg-white">
-        <div class="max-w-[1440px] mx-auto px-10">
-            <div class="bg-[#F2E7D5]/50 rounded-[3rem] p-16 md:p-24 text-center border-2 border-white">
-                <h2 class="font-display text-4xl font-bold text-[#2D2D2D] mb-8">“समाज तभी बदलता है, जब हम बदलते हैं।”</h2>
-                <div class="flex flex-wrap justify-center gap-6">
-                    <a href="{% url 'donate' %}" class="px-10 py-5 bg-[#D97757] text-white rounded-full font-bold shadow-lg hover:bg-[#c46548] transition-all">Support Our Growth</a>
-                    <a href="{% url 'volunteer' %}" class="px-10 py-5 border-2 border-[#7C9070] text-[#7C9070] rounded-full font-bold hover:bg-[#7C9070] hover:text-white transition-all">Join as Volunteer</a>
+    <section class="pb-16 md:pb-32 bg-white">
+        <div class="max-w-[1440px] mx-auto px-6 md:px-10">
+            <div class="bg-[#F2E7D5]/50 rounded-[2rem] md:rounded-[3rem] p-8 sm:p-12 md:p-16 lg:p-24 text-center border-2 border-white">
+                <h2 class="font-display text-2xl sm:text-3xl md:text-4xl font-bold text-[#2D2D2D] mb-6 md:mb-8">"समाज तभी बदलता है, जब हम बदलते हैं।"</h2>
+                <div class="flex flex-col sm:flex-row flex-wrap justify-center gap-4 md:gap-6">
+                    <a href="{% url 'donate' %}" class="px-8 md:px-10 py-4 md:py-5 bg-[#D97757] text-white rounded-full font-bold shadow-lg hover:bg-[#c46548] transition-all text-sm md:text-base">Support Our Growth</a>
+                    <a href="{% url 'volunteer' %}" class="px-8 md:px-10 py-4 md:py-5 border-2 border-[#7C9070] text-[#7C9070] rounded-full font-bold hover:bg-[#7C9070] hover:text-white transition-all text-sm md:text-base">Join as Volunteer</a>
                 </div>
             </div>
         </div>

@@ -1,5 +1,5 @@
 from django import forms
-from .models import Volunteer, ContactMessage, Donation, GalleryPhoto, Testimonial
+from .models import Volunteer, ContactMessage, Donation, GalleryPhoto, Testimonial, Event, Category
 
 class VolunteerForm(forms.ModelForm):
     class Meta:
@@ -54,4 +54,17 @@ class TestimonialForm(forms.ModelForm):
             'name': forms.TextInput(attrs={'placeholder': 'Your full name', 'class': 'w-full p-4 rounded-xl border border-[#F2E7D5] focus:outline-none focus:border-[#D97757]'}),
             'role': forms.TextInput(attrs={'placeholder': 'e.g., Volunteer, Donor, Beneficiary', 'class': 'w-full p-4 rounded-xl border border-[#F2E7D5] focus:outline-none focus:border-[#D97757]'}),
             'content': forms.Textarea(attrs={'placeholder': 'Share your experience with Leela Foundation...', 'rows': 4, 'class': 'w-full p-4 rounded-xl border border-[#F2E7D5] focus:outline-none focus:border-[#D97757] resize-none'}),
+        }
+
+class EventForm(forms.ModelForm):
+    class Meta:
+        model = Event
+        fields = ['title', 'description', 'image', 'location', 'Category', 'is_active']
+        widgets = {
+            'title': forms.TextInput(attrs={'placeholder': 'Event Title', 'class': 'w-full p-4 rounded-xl border border-[#F2E7D5] focus:outline-none focus:border-[#D97757]'}),
+            'description': forms.Textarea(attrs={'placeholder': 'Event Description', 'rows': 4, 'class': 'w-full p-4 rounded-xl border border-[#F2E7D5] focus:outline-none focus:border-[#D97757]'}),
+            'location': forms.TextInput(attrs={'placeholder': 'Location', 'class': 'w-full p-4 rounded-xl border border-[#F2E7D5] focus:outline-none focus:border-[#D97757]'}),
+            'image': forms.ClearableFileInput(attrs={'class': 'w-full p-4 rounded-xl border border-[#F2E7D5] focus:outline-none focus:border-[#D97757] file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:bg-[#7C9070] file:text-white file:font-bold'}),
+            'Category': forms.Select(attrs={'class': 'w-full p-4 rounded-xl border border-[#F2E7D5] focus:outline-none focus:border-[#D97757] bg-white'}),
+            'is_active': forms.CheckboxInput(attrs={'class': 'w-6 h-6 rounded border-[#F2E7D5] text-[#D97757] focus:ring-[#D97757]'}),
         }

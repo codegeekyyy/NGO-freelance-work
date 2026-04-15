@@ -67,7 +67,7 @@
         {% include "includes/header.html" %}
 
         {% if messages %}
-        <div id="messages-container" class="fixed top-24 right-10 z-50 space-y-4 max-w-sm">
+        <div id="messages-container" class="fixed top-24 right-4 md:right-10 z-50 space-y-4 max-w-[calc(100vw-2rem)] md:max-w-sm">
             {% for message in messages %}
             <div class="django-message bg-white border-l-4 {% if message.tags == 'success' %}border-[#7C9070]{% else %}border-[#D97757]{% endif %} shadow-xl p-6 rounded-2xl animate-float transition-all duration-500">
                 <div class="flex items-center gap-4">

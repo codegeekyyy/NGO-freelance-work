@@ -3,7 +3,7 @@ from .models import Event, Testimonial, Donation, Volunteer, ImpactStatistic, Ga
 import json
 from django.db.models import Sum
 from django.contrib import messages
-from .forms import VolunteerForm, DonationForm, ContactForm, GalleryPhotoForm, TestimonialForm
+from .forms import VolunteerForm, DonationForm, ContactForm, GalleryPhotoForm, TestimonialForm, EventForm
 from .brevo_email import send_brevo_email
 from django.conf import settings
 from django.contrib.auth.forms import UserCreationForm
@@ -96,6 +96,14 @@ def home(request):
             'date': p.created_at.strftime('%Y-%m-%d')
         })
 
+    event_form = EventForm()
+    if request.method == 'POST' and 'event_submit' in request.POST and request.user.is_staff:
+        event_form = EventForm(request.POST, request.FILES)
+        if event_form.is_valid():
+            event_form.save()
+            messages.success(request, 'Event posted successfully!')
+            return redirect('home')
+
     context = {
         'events': events,
         'testimonials': testimonials,
@@ -108,6 +116,7 @@ def home(request):
         'gallery_photos': gallery_photos,
         'gallery_photos_json': json.dumps(photos_list),
         'testimonial_form': testimonial_form,
+        'event_form': event_form,
     }
     return render(request, 'home.html', context)
 
@@ -256,11 +265,57 @@ def stories(request):
 def impact(request):
     stats = ImpactStatistic.objects.first()
     events = Event.objects.all().order_by('-date')
+    
+    event_form = EventForm()
+    
+    if request.method == 'POST' and 'event_submit' in request.POST and request.user.is_staff:
+        event_form = EventForm(request.POST, request.FILES)
+        if event_form.is_valid():
+            event_form.save()
+            messages.success(request, 'Event posted successfully!')
+            return redirect('impact')
+        else:
+            messages.error(request, 'Error posting event. Please check the form.')
+
     context = {
         'stats': stats or {'lives_touched': '12K+', 'bloom_rate': '85%', 'communities': '40+'},
         'events': events,
+        'event_form': event_form,
     }
     return render(request, 'impact.html', context)
+
+
+@login_required
+def edit_event(request, event_id):
+    if not request.user.is_staff:
+        messages.error(request, "Unauthorized access.")
+        return redirect('impact')
+        
+    event = get_object_or_404(Event, id=event_id)
+    if request.method == 'POST':
+        form = EventForm(request.POST, request.FILES, instance=event)
+        if form.is_valid():
+            form.save()
+            messages.success(request, f'Event "{event.title}" updated successfully!')
+            return redirect('impact')
+    else:
+        form = EventForm(instance=event)
+    
+    return render(request, 'edit_event.html', {'form': form, 'event': event})
+
+
+@login_required
+def delete_event(request, event_id):
+    if not request.user.is_staff:
+        messages.error(request, "Unauthorized access.")
+        return redirect('impact')
+        
+    event = get_object_or_404(Event, id=event_id)
+    if request.method == 'POST':
+        title = event.title
+        event.delete()
+        messages.success(request, f'Event "{title}" deleted successfully.')
+    return redirect('impact')
 
 
 def volunteer_view(request):

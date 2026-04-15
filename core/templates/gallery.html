@@ -5,7 +5,7 @@
 {% block meta_description %}A visual journey of our work and the lives we touch. View photos from our community events, classrooms, and field programs.{% endblock %}
 
 {% block content %}
-<section class="py-24 bg-[#FDFBF7] min-h-screen relative overflow-hidden">
+<section class="py-16 md:py-24 bg-[#FDFBF7] min-h-screen relative overflow-hidden">
     <!-- Decorative background elements -->
     <div class="absolute top-0 right-0 w-[500px] h-[500px] bg-[#7C9070]/5 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2"></div>
     <div class="absolute bottom-0 left-0 w-[400px] h-[400px] bg-[#D97757]/5 rounded-full blur-3xl translate-y-1/2 -translate-x-1/2"></div>
@@ -13,43 +13,43 @@
     <div class="max-w-[1440px] mx-auto px-6 md:px-10 relative z-10">
 
         <!-- Page Header -->
-        <div class="flex flex-col md:flex-row justify-between items-end mb-16 gap-8">
-            <div class="space-y-4">
-                <div class="inline-flex items-center gap-2 bg-[#F2E7D5] px-4 py-2 rounded-full text-[#7C9070] font-bold text-sm uppercase tracking-widest mb-2">
+        <div class="flex flex-col md:flex-row justify-between items-start md:items-end mb-10 md:mb-16 gap-6 md:gap-8">
+            <div class="space-y-3 md:space-y-4">
+                <div class="inline-flex items-center gap-2 bg-[#F2E7D5] px-4 py-2 rounded-full text-[#7C9070] font-bold text-xs md:text-sm uppercase tracking-widest mb-2">
                     <iconify-icon icon="ph:camera-bold"></iconify-icon>
                     From the Field
                 </div>
-                <h1 class="font-display text-5xl md:text-7xl font-bold text-[#2D2D2D]">Our <span class="text-[#D97757]">Visual Journey</span></h1>
-                <p class="text-[#5E5E5E] text-lg max-w-2xl leading-relaxed">
+                <h1 class="font-display text-3xl sm:text-4xl md:text-5xl lg:text-7xl font-bold text-[#2D2D2D]">Our <span class="text-[#D97757]">Visual Journey</span></h1>
+                <p class="text-[#5E5E5E] text-sm md:text-lg max-w-2xl leading-relaxed">
                     A glimpse into the lives we've touched and the communities we've built.
                     Every photo tells a story of resilience, hope, and transformation.
                 </p>
             </div>
             {% if user.is_staff %}
-            <button onclick="openUploadModal()" class="group px-8 py-4 bg-[#7C9070] text-white rounded-2xl font-bold hover:bg-[#D97757] transition-all flex items-center gap-3 shadow-lg hover:shadow-xl transform hover:-translate-y-1">
-                <iconify-icon icon="ph:plus-bold" class="text-xl group-hover:rotate-90 transition-transform"></iconify-icon>
+            <button onclick="openUploadModal()" class="group w-full sm:w-auto px-6 md:px-8 py-3 md:py-4 bg-[#7C9070] text-white rounded-2xl font-bold hover:bg-[#D97757] transition-all flex items-center justify-center gap-3 shadow-lg hover:shadow-xl transform hover:-translate-y-1 text-sm md:text-base">
+                <iconify-icon icon="ph:plus-bold" class="text-lg md:text-xl group-hover:rotate-90 transition-transform"></iconify-icon>
                 Add New Project
             </button>
             {% endif %}
         </div>
 
         <!-- Masonry Photo Grid -->
-        <div id="gallery-grid" class="columns-1 md:columns-2 lg:columns-3 gap-8 space-y-8 min-h-[400px] transition-all duration-500">
+        <div id="gallery-grid" class="columns-1 md:columns-2 lg:columns-3 gap-4 md:gap-8 space-y-4 md:space-y-8 min-h-[300px] md:min-h-[400px] transition-all duration-500">
             <!-- Items injected via JavaScript -->
         </div>
 
         <!-- Loading State / Empty State -->
-        <div id="gallery-status" class="hidden py-32 text-center bg-white rounded-[4rem] border-2 border-dashed border-[#F2E7D5] mt-12">
-            <div class="mb-6 inline-block p-6 bg-[#FDFBF7] rounded-full text-[#7C9070]">
-                <iconify-icon icon="ph:magnifying-glass-bold" class="text-5xl"></iconify-icon>
+        <div id="gallery-status" class="hidden py-16 md:py-32 text-center bg-white rounded-[2rem] md:rounded-[4rem] border-2 border-dashed border-[#F2E7D5] mt-8 md:mt-12">
+            <div class="mb-4 md:mb-6 inline-block p-4 md:p-6 bg-[#FDFBF7] rounded-full text-[#7C9070]">
+                <iconify-icon icon="ph:magnifying-glass-bold" class="text-4xl md:text-5xl"></iconify-icon>
             </div>
-            <h3 class="text-2xl font-display font-bold text-[#2D2D2D]">No photos found</h3>
-            <p class="text-[#5E5E5E] mt-2">Try selecting a different category or check back later.</p>
+            <h3 class="text-xl md:text-2xl font-display font-bold text-[#2D2D2D]">No photos found</h3>
+            <p class="text-[#5E5E5E] mt-2 text-sm md:text-base">Try selecting a different category or check back later.</p>
         </div>
 
         <!-- Load More Button -->
-        <div class="mt-20 text-center" id="load-more-container">
-            <button onclick="loadMore()" id="load-more-btn" class="px-12 py-5 bg-white border-2 border-[#F2E7D5] text-[#2D2D2D] rounded-2xl font-bold hover:bg-[#F2E7D5] hover:border-[#D97757] hover:text-[#D97757] transition-all flex items-center gap-3 mx-auto shadow-sm">
+        <div class="mt-12 md:mt-20 text-center" id="load-more-container">
+            <button onclick="loadMore()" id="load-more-btn" class="px-8 md:px-12 py-4 md:py-5 bg-white border-2 border-[#F2E7D5] text-[#2D2D2D] rounded-2xl font-bold hover:bg-[#F2E7D5] hover:border-[#D97757] hover:text-[#D97757] transition-all flex items-center gap-2 md:gap-3 mx-auto shadow-sm text-sm md:text-base">
                 <iconify-icon icon="ph:arrow-down-bold"></iconify-icon>
                 Discover More Captured Moments
             </button>
@@ -193,7 +193,7 @@
         slice.forEach((photo, idx) => {
             const itemIdx = start + idx;
             const card = document.createElement('div');
-            card.className = 'gallery-item break-inside-avoid group relative rounded-[2.5rem] overflow-hidden border border-[#F2E7D5] bg-white hover:shadow-2xl transition-all duration-700 cursor-pointer opacity-0 translate-y-8';
+            card.className = 'gallery-item break-inside-avoid group relative rounded-[1.5rem] md:rounded-[2.5rem] overflow-hidden border border-[#F2E7D5] bg-white hover:shadow-2xl transition-all duration-700 cursor-pointer opacity-0 translate-y-8';
             card.onclick = () => openLightbox(itemIdx);
             
             card.innerHTML = `
@@ -201,9 +201,9 @@
                     <img data-src="${photo.image}" alt="${photo.title}" class="lazy-img w-full h-auto object-cover group-hover:scale-105 transition-transform duration-[2000ms]">
                 </div>
                 <!-- Hover/Static Info Area -->
-                <div class="p-8 pb-10">
-                    <h3 class="font-display text-2xl font-bold text-[#2D2D2D] mb-2 leading-tight group-hover:text-[#D97757] transition-colors">${photo.title}</h3>
-                    <p class="text-[#5E5E5E] text-sm line-clamp-2">${photo.description}</p>
+                <div class="p-5 pb-6 md:p-8 md:pb-10">
+                    <h3 class="font-display text-lg md:text-2xl font-bold text-[#2D2D2D] mb-1 md:mb-2 leading-tight group-hover:text-[#D97757] transition-colors">${photo.title}</h3>
+                    <p class="text-[#5E5E5E] text-xs md:text-sm line-clamp-2">${photo.description}</p>
                 </div>
                 <!-- Premium Hover Overlay -->
                 <div class="absolute inset-0 bg-[#2D2D2D]/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500">

@@ -19,8 +19,10 @@ urlpatterns = [
     # photo gallery
     path('gallery/', views.gallery, name='gallery'),
 
-    # eventsdetail
+    # events management
     path('events/<int:event_id>/', views.event_detail, name='event_detail'),
+    path('events/<int:event_id>/edit/', views.edit_event, name='edit_event'),
+    path('events/<int:event_id>/delete/', views.delete_event, name='delete_event'),
     
     #Routes
     path('stories/', views.stories, name='stories'),

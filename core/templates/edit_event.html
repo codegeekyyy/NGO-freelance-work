@@ -1,0 +1,68 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Edit Event | Leela Foundation{% endblock %}
+
+{% block content %}
+<main class="bg-[#FDFBF7] min-h-screen pt-40 pb-20">
+    <div class="max-w-4xl mx-auto px-10">
+        <div class="bg-white rounded-[3rem] shadow-xl border border-[#F2E7D5] overflow-hidden">
+            <div class="bg-[#2D2D2D] p-12 text-white text-center">
+                <h1 class="font-display text-4xl font-bold mb-4">Edit Event</h1>
+                <p class="text-gray-400">Update the details for "{{ event.title }}"</p>
+            </div>
+            
+            <form method="POST" enctype="multipart/form-data" class="p-12 space-y-8">
+                {% csrf_token %}
+                
+                <div class="grid md:grid-cols-2 gap-8">
+                    <div class="space-y-2">
+                        <label class="block text-sm font-bold text-[#7C9070] uppercase tracking-wider">Event Title</label>
+                        {{ form.title }}
+                    </div>
+                    <div class="space-y-2">
+                        <label class="block text-sm font-bold text-[#7C9070] uppercase tracking-wider">Location</label>
+                        {{ form.location }}
+                    </div>
+                </div>
+
+                <div class="space-y-2">
+                    <label class="block text-sm font-bold text-[#7C9070] uppercase tracking-wider">Description</label>
+                    {{ form.description }}
+                </div>
+
+                <div class="grid md:grid-cols-2 gap-8">
+                    <div class="space-y-2">
+                        <label class="block text-sm font-bold text-[#7C9070] uppercase tracking-wider">Category</label>
+                        {{ form.Category }}
+                    </div>
+                    <div class="flex items-center gap-4 pt-8">
+                        {{ form.is_active }}
+                        <label class="text-sm font-bold text-[#2D2D2D] uppercase tracking-wider">Is Active</label>
+                    </div>
+                </div>
+
+                <div class="space-y-2">
+                    <label class="block text-sm font-bold text-[#7C9070] uppercase tracking-wider">Event Image</label>
+                    <div class="mt-2 p-6 border-2 border-dashed border-[#F2E7D5] rounded-2xl bg-[#FDFBF7]">
+                        {% if event.image %}
+                            <div class="mb-4">
+                                <p class="text-xs text-gray-500 mb-2">Current Image:</p>
+                                <img src="{{ event.image.url }}" class="h-32 rounded-lg" alt="Current">
+                            </div>
+                        {% endif %}
+                        {{ form.image }}
+                    </div>
+                </div>
+
+                <div class="flex items-center justify-end gap-4 pt-6">
+                    <a href="{% url 'impact' %}" class="px-8 py-4 text-[#2D2D2D] font-bold hover:underline">Cancel</a>
+                    <button type="submit" class="px-10 py-4 bg-[#D97757] text-white rounded-full font-bold shadow-lg hover:bg-[#c46548] transition-all">
+                        Update Event
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</main>
+{% endblock %}

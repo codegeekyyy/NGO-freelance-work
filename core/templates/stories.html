@@ -7,14 +7,14 @@
 {% block content %}
 <main class="bg-[#FDFBF7] min-h-screen">
     <!-- Hero Section -->
-    <header class="pt-32 pb-20 bg-[#F2E7D5]/30">
-        <div class="max-w-[1440px] mx-auto px-10 text-center">
-            <div class="inline-flex items-center gap-3 text-[#D97757] font-bold uppercase tracking-widest mb-6">
-                <iconify-icon icon="ph:quotes-bold" class="text-3xl"></iconify-icon>
+    <header class="pt-20 md:pt-32 pb-12 md:pb-20 bg-[#F2E7D5]/30">
+        <div class="max-w-[1440px] mx-auto px-6 md:px-10 text-center">
+            <div class="inline-flex items-center gap-2 md:gap-3 text-[#D97757] font-bold uppercase tracking-widest mb-4 md:mb-6 text-xs md:text-sm">
+                <iconify-icon icon="ph:quotes-bold" class="text-2xl md:text-3xl"></iconify-icon>
                 <span>Voice of Change</span>
             </div>
-            <h1 class="font-display text-6xl md:text-7xl font-bold text-[#2D2D2D] mb-8">Whispers of Impact</h1>
-            <p class="text-xl text-[#5E5E5E] max-w-2xl mx-auto leading-relaxed">
+            <h1 class="font-display text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-[#2D2D2D] mb-6 md:mb-8">Whispers of Impact</h1>
+            <p class="text-base md:text-xl text-[#5E5E5E] max-w-2xl mx-auto leading-relaxed">
                 Every ripple starts with a single story. Explore the lives touched, the dreams rekindled, and the community we're building together.
             </p>
         </div>
@@ -24,28 +24,28 @@
     {% include 'includes/testimonials.html' %}
 
     <!-- CTA Section -->
-    <section class="py-32">
-        <div class="max-w-[1440px] mx-auto px-10">
-            <div class="bg-[#2D2D2D] rounded-[4rem] p-16 md:p-24 text-center relative overflow-hidden">
+    <section class="py-16 md:py-32">
+        <div class="max-w-[1440px] mx-auto px-6 md:px-10">
+            <div class="bg-[#2D2D2D] rounded-[2.5rem] md:rounded-[4rem] p-8 sm:p-12 md:p-16 lg:p-24 text-center relative overflow-hidden">
                 <div class="relative z-10">
-                    <h2 class="font-display text-5xl font-bold text-white mb-8">Have a story to share?</h2>
-                    <p class="text-white/60 text-xl mb-12 max-w-2xl mx-auto">
+                    <h2 class="font-display text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-6 md:mb-8">Have a story to share?</h2>
+                    <p class="text-white/60 text-base md:text-xl mb-8 md:mb-12 max-w-2xl mx-auto">
                         Your experience can be the spark that inspires someone else to join our mission.
                     </p>
                     {% if user.is_authenticated %}
                         <button onclick="document.getElementById('testimonial-modal').classList.remove('hidden')" 
-                                class="px-12 py-6 bg-[#D97757] text-white rounded-full font-bold text-lg hover:bg-[#c46548] transition-all shadow-xl">
+                                class="px-8 md:px-12 py-4 md:py-6 bg-[#D97757] text-white rounded-full font-bold text-base md:text-lg hover:bg-[#c46548] transition-all shadow-xl">
                             Share Your Story Now
                         </button>
                     {% else %}
-                        <a href="{% url 'login' %}" class="px-12 py-6 bg-white text-[#2D2D2D] rounded-full font-bold text-lg hover:bg-[#F2E7D5] transition-all shadow-xl">
+                        <a href="{% url 'login' %}" class="inline-block px-8 md:px-12 py-4 md:py-6 bg-white text-[#2D2D2D] rounded-full font-bold text-base md:text-lg hover:bg-[#F2E7D5] transition-all shadow-xl">
                             Sign in to Share
                         </a>
                     {% endif %}
                 </div>
                 <!-- Decorative blobs -->
-                <div class="absolute -top-20 -right-20 w-80 h-80 bg-[#D97757]/20 blur-[100px] rounded-full"></div>
-                <div class="absolute -bottom-20 -left-20 w-80 h-80 bg-[#7C9070]/20 blur-[100px] rounded-full"></div>
+                <div class="absolute -top-20 -right-20 w-60 md:w-80 h-60 md:h-80 bg-[#D97757]/20 blur-[100px] rounded-full"></div>
+                <div class="absolute -bottom-20 -left-20 w-60 md:w-80 h-60 md:h-80 bg-[#7C9070]/20 blur-[100px] rounded-full"></div>
             </div>
         </div>
     </section>

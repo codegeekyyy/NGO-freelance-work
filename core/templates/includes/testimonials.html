@@ -1,100 +1,100 @@
-<section id="stories" class="py-32 bg-[#F2E7D5]/50">
-    <div class="max-w-[1440px] mx-auto px-10">
-        <div class="text-center mb-20">
-            <iconify-icon icon="ph:chat-circle-dots-bold" class="text-[#D97757] text-6xl mb-6"></iconify-icon>
-            <h2 class="font-display text-5xl font-bold text-[#2D2D2D]">Whispers of Impact</h2>
+<section id="stories" class="py-20 md:py-32 bg-[#F2E7D5]/50">
+    <div class="max-w-[1440px] mx-auto px-6 md:px-10">
+        <div class="text-center mb-12 md:mb-20">
+            <iconify-icon icon="ph:chat-circle-dots-bold" class="text-[#D97757] text-4xl md:text-6xl mb-4 md:mb-6"></iconify-icon>
+            <h2 class="font-display text-3xl sm:text-4xl md:text-5xl font-bold text-[#2D2D2D]">Whispers of Impact</h2>
         </div>
 
-        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-10">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 lg:gap-10">
             {% for testimonial in testimonials %}
-            <div class="bg-white p-12 rounded-[3rem] shadow-sm relative {% if forloop.counter == 2 %}md:translate-y-8{% endif %}">
-                <div class="absolute -top-6 left-12 w-16 h-16 organic-radius-1 bg-[#F2E7D5] overflow-hidden border-4 border-white shadow-md">
+            <div class="bg-white p-6 md:p-8 lg:p-12 rounded-[2rem] md:rounded-[3rem] shadow-sm relative {% if forloop.counter == 2 %}md:translate-y-8{% endif %}">
+                <div class="absolute -top-5 md:-top-6 left-8 md:left-12 w-12 h-12 md:w-16 md:h-16 organic-radius-1 bg-[#F2E7D5] overflow-hidden border-3 md:border-4 border-white shadow-md">
                     {% if testimonial.image %}
                         <img src="{{ testimonial.image.url }}" alt="{{ testimonial.name }}" class="w-full h-full object-cover">
                     {% else %}
                         <img src="https://api.dicebear.com/7.x/avataaars/svg?seed={{ testimonial.name }}" alt="{{ testimonial.name }}" class="w-full h-full object-cover">
                     {% endif %}
                 </div>
-                <p class="text-[#5E5E5E] italic text-lg leading-relaxed mb-4 transition-all duration-500 line-clamp-4 break-words">
+                <p class="text-[#5E5E5E] italic text-base md:text-lg leading-relaxed mb-4 transition-all duration-500 line-clamp-4 break-words mt-2 md:mt-0">
                     "{{ testimonial.content }}"
                 </p>
                 
                 {% if testimonial.content|length > 180 %}
-                <button onclick="toggleTestimonial(this)" class="text-[#D97757] font-bold text-sm hover:underline mb-8 flex items-center gap-1 group transition-all">
+                <button onclick="toggleTestimonial(this)" class="text-[#D97757] font-bold text-xs md:text-sm hover:underline mb-6 md:mb-8 flex items-center gap-1 group transition-all">
                     <span>Read More</span>
                     <iconify-icon icon="ph:caret-down-bold" class="group-hover:translate-y-1 transition-transform"></iconify-icon>
                 </button>
                 {% else %}
-                <div class="mb-8"></div>
+                <div class="mb-6 md:mb-8"></div>
                 {% endif %}
 
-                <h4 class="font-bold text-[#D97757]">{{ testimonial.name }}</h4>
-                <p class="text-sm text-[#7C9070] font-medium uppercase">{{ testimonial.role }}</p>
+                <h4 class="font-bold text-[#D97757] text-sm md:text-base">{{ testimonial.name }}</h4>
+                <p class="text-xs md:text-sm text-[#7C9070] font-medium uppercase">{{ testimonial.role }}</p>
             </div>
             {% empty %}
-            <div class="col-span-full text-center py-10">
-                <p class="text-[#5E5E5E]">No testimonials yet. Be the first to share your story!</p>
+            <div class="col-span-full text-center py-8 md:py-10">
+                <p class="text-[#5E5E5E] text-sm md:text-base">No testimonials yet. Be the first to share your story!</p>
             </div>
             {% endfor %}
         </div>
 
         {% if request.user.is_authenticated %}
-        <div class="mt-16 text-center">
+        <div class="mt-10 md:mt-16 text-center">
             <button onclick="document.getElementById('testimonial-modal').classList.remove('hidden')" 
-                    class="group relative inline-flex items-center gap-3 px-10 py-5 bg-[#D97757] text-white rounded-full font-bold shadow-xl hover:shadow-2xl hover:bg-[#c46548] transition-all duration-300 hover:-translate-y-1">
-                <iconify-icon icon="ph:pencil-line-bold" class="text-2xl group-hover:rotate-12 transition-transform"></iconify-icon>
+                    class="group relative inline-flex items-center gap-2 md:gap-3 px-6 md:px-10 py-4 md:py-5 bg-[#D97757] text-white rounded-full font-bold shadow-xl hover:shadow-2xl hover:bg-[#c46548] transition-all duration-300 hover:-translate-y-1 text-sm md:text-base">
+                <iconify-icon icon="ph:pencil-line-bold" class="text-xl md:text-2xl group-hover:rotate-12 transition-transform"></iconify-icon>
                 Share Your Impact Story
                 <div class="absolute inset-0 rounded-full border-2 border-white/20 animate-pulse"></div>
             </button>
         </div>
 
         <!-- Add Testimonial Modal -->
-        <div id="testimonial-modal" class="hidden fixed inset-0 z-[100] flex items-center justify-center p-6 sm:p-10">
+        <div id="testimonial-modal" class="hidden fixed inset-0 z-[100] flex items-center justify-center p-4 sm:p-6 md:p-10">
             <div class="absolute inset-0 bg-[#2D2D2D]/60 backdrop-blur-md transition-opacity" 
                  onclick="document.getElementById('testimonial-modal').classList.add('hidden')"></div>
             
-            <div class="relative bg-white w-full max-w-xl rounded-[3rem] p-10 sm:p-14 shadow-2xl border-4 border-[#F2E7D5] transform transition-all">
+            <div class="relative bg-white w-full max-w-xl rounded-[2rem] md:rounded-[3rem] p-6 sm:p-8 md:p-10 lg:p-14 shadow-2xl border-2 md:border-4 border-[#F2E7D5] transform transition-all max-h-[90vh] overflow-y-auto">
                 <button onclick="document.getElementById('testimonial-modal').classList.add('hidden')" 
-                        class="absolute top-8 right-8 text-[#5E5E5E] hover:text-[#D97757] transition-colors">
-                    <iconify-icon icon="ph:x-bold" class="text-3xl"></iconify-icon>
+                        class="absolute top-4 right-4 md:top-8 md:right-8 text-[#5E5E5E] hover:text-[#D97757] transition-colors">
+                    <iconify-icon icon="ph:x-bold" class="text-2xl md:text-3xl"></iconify-icon>
                 </button>
 
-                <div class="text-center mb-10">
-                    <div class="w-20 h-20 organic-radius-1 bg-[#F2E7D5] flex items-center justify-center mx-auto mb-6">
-                        <iconify-icon icon="ph:quotes-bold" class="text-[#D97757] text-4xl"></iconify-icon>
+                <div class="text-center mb-6 md:mb-10">
+                    <div class="w-14 h-14 md:w-20 md:h-20 organic-radius-1 bg-[#F2E7D5] flex items-center justify-center mx-auto mb-4 md:mb-6">
+                        <iconify-icon icon="ph:quotes-bold" class="text-[#D97757] text-2xl md:text-4xl"></iconify-icon>
                     </div>
-                    <h3 class="font-display text-4xl font-bold text-[#2D2D2D]">Share Your Whispers</h3>
-                    <p class="text-[#5E5E5E] mt-4">Your story can inspire thousands. Thank you for being part of our journey.</p>
+                    <h3 class="font-display text-2xl md:text-3xl lg:text-4xl font-bold text-[#2D2D2D]">Share Your Whispers</h3>
+                    <p class="text-[#5E5E5E] mt-3 md:mt-4 text-sm md:text-base">Your story can inspire thousands. Thank you for being part of our journey.</p>
                 </div>
 
-                <form method="POST" enctype="multipart/form-data" class="space-y-6">
+                <form method="POST" enctype="multipart/form-data" class="space-y-4 md:space-y-6">
                     {% csrf_token %}
                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                         <div class="space-y-2">
-                            <label class="text-sm font-bold text-[#7C9070] uppercase ml-2">Name</label>
+                            <label class="text-xs md:text-sm font-bold text-[#7C9070] uppercase ml-2">Name</label>
                             {{ testimonial_form.name }}
                         </div>
                         <div class="space-y-2">
-                            <label class="text-sm font-bold text-[#7C9070] uppercase ml-2">Your Role</label>
+                            <label class="text-xs md:text-sm font-bold text-[#7C9070] uppercase ml-2">Your Role</label>
                             {{ testimonial_form.role }}
                         </div>
                     </div>
                     <div class="space-y-2">
-                        <label class="text-sm font-bold text-[#7C9070] uppercase ml-2">Your Experience</label>
+                        <label class="text-xs md:text-sm font-bold text-[#7C9070] uppercase ml-2">Your Experience</label>
                         {{ testimonial_form.content }}
                     </div>
                     
                     <button type="submit" name="testimonial_submit" 
-                            class="w-full py-5 bg-[#7C9070] text-white rounded-2xl font-bold text-lg shadow-lg hover:bg-[#6b7d61] transition-all duration-300 flex items-center justify-center gap-3">
-                        <iconify-icon icon="ph:paper-plane-tilt-bold" class="text-2xl"></iconify-icon>
+                            class="w-full py-4 md:py-5 bg-[#7C9070] text-white rounded-2xl font-bold text-base md:text-lg shadow-lg hover:bg-[#6b7d61] transition-all duration-300 flex items-center justify-center gap-2 md:gap-3">
+                        <iconify-icon icon="ph:paper-plane-tilt-bold" class="text-xl md:text-2xl"></iconify-icon>
                         Submit Your Story
                     </button>
                 </form>
             </div>
         </div>
         {% else %}
-        <div class="mt-16 text-center">
-            <a href="{% url 'login' %}" class="text-[#D97757] font-bold hover:underline underline-offset-8 flex items-center gap-2 justify-center transition-all">
+        <div class="mt-10 md:mt-16 text-center">
+            <a href="{% url 'login' %}" class="text-[#D97757] font-bold hover:underline underline-offset-8 flex items-center gap-2 justify-center transition-all text-sm md:text-base">
                 <iconify-icon icon="ph:lock-key-bold"></iconify-icon>
                 Sign in to share your impact story
             </a>

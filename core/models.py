@@ -1,6 +1,7 @@
 from django.db import models
 from django.utils.text import slugify
 from django.contrib.auth.models import User
+from .image_utils import resize_image
 
 # Create your models here.
 
@@ -30,6 +31,11 @@ class Event(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
+    def save(self, *args, **kwargs):
+        if self.image:
+            self.image = resize_image(self.image)
+        super().save(*args, **kwargs)
+
     def __str__(self):
         return self.title
 
@@ -38,6 +44,11 @@ class EventImage(models.Model):
     event = models.ForeignKey(Event, on_delete=models.CASCADE, related_name='images')
     image = models.ImageField(upload_to='events/gallery/')
     created_at = models.DateTimeField(auto_now_add=True)
+
+    def save(self, *args, **kwargs):
+        if self.image:
+            self.image = resize_image(self.image)
+        super().save(*args, **kwargs)
 
     def __str__(self):
         return f"Image for {self.event.title}"
@@ -74,6 +85,11 @@ class Donation(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True)
     image = models.ImageField(upload_to='donations/', blank=True, null=True)
 
+    def save(self, *args, **kwargs):
+        if self.image:
+            self.image = resize_image(self.image)
+        super().save(*args, **kwargs)
+
     def __str__(self):
         return f"{self.donor_name} - {self.amount}"
 
@@ -96,6 +112,11 @@ class Testimonial(models.Model):
     image = models.ImageField(upload_to='testimonials/', blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
 
+    def save(self, *args, **kwargs):
+        if self.image:
+            self.image = resize_image(self.image)
+        super().save(*args, **kwargs)
+
     def __str__(self):
         return self.name
 
@@ -113,6 +134,11 @@ class GalleryPhoto(models.Model):
     category = models.ForeignKey(Category, on_delete=models.CASCADE, null=True, blank=True, related_name='photos')
     description = models.TextField(blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
+
+    def save(self, *args, **kwargs):
+        if self.image:
+            self.image = resize_image(self.image)
+        super().save(*args, **kwargs)
 
     def __str__(self):
         return self.title or  f"Photo {self.id}"
